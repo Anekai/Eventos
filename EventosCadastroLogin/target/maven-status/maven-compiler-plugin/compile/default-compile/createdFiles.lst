@@ -1,0 +1,6 @@
+apoio\ConexaoBD.class
+service\CadastroService.class
+service\LoginService.class
+dao\CadastroDAO.class
+dao\LoginDAO.class
+entidade\Protesto.class
