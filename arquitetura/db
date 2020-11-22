@@ -1,0 +1,22 @@
+CREATE TABLE pessoa(
+	id serial PRIMARY KEY,
+	CPF VARCHAR(14) NOT NULL,
+	nome VARCHAR (100) NOT NULL,
+	email VARCHAR(50),
+	data_nascimento DATE NOT NULL,
+	senha VARCHAR(45),
+	offline BOOLEAN NOT NULL);
+
+	CREATE TABLE evento(
+	id serial PRIMARY KEY,
+	nome_evento VARCHAR(200) NOT NULL,
+	tipo_evento VARCHAR(45),
+	data DATE NOT NULL);
+
+	CREATE TABLE registro_evento(
+	presenca BOOLEAN NOT NULL,
+	codigo_validacao VARCHAR(200),
+	offline BOOLEAN NOT NULL,
+	pessoa_id INT REFERENCES pessoa (id),
+	evento_id INT REFERENCES evento(id)
+	);
