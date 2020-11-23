@@ -14,7 +14,7 @@ public class Registro_evento{
 	{
 	}
 
-	public Registro_evento(String codigo_validacao, boolean presenca, boolean offline);
+	public Registro_evento(String codigo_validacao, boolean presenca, boolean offline)
 	{
 		this.codigo_validacao = codigo_validacao;
 		this.presenca = presenca;
@@ -42,12 +42,12 @@ public class Registro_evento{
 		this.presenca = presenca;
 	}
 
-	public void getOffline()
+	public Boolean getOffline()
 	{
 		return offline;
 	}
 
-	public Boolean setOffline(Boolean offline)
+	public void setOffline(Boolean offline)
 	{
 		this.offline = offline;
 	}

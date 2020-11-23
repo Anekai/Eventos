@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entidade;
+package Entidade;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -24,7 +24,6 @@ public class Evento{
 	{
 		this.tipo_evento = tipo_evento;
 		this.nome_evento = nome_evento;
-		this.email = email;
 		this.data = data;
 	}
 
@@ -32,7 +31,7 @@ public class Evento{
 		return id;
 	}
 
-	public void set Id(int id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}

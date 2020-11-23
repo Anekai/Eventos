@@ -1,5 +1,7 @@
 package Entidade;
 
+import java.util.Date;
+
 public class Pessoa{
 	
 	private int id;
@@ -26,7 +28,7 @@ public class Pessoa{
 		return id;
 	}
 
-	public void set Id(int id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}
@@ -66,7 +68,7 @@ public class Pessoa{
 		return offline;
 	}
 
-	public void setOffline(boolean Offline)
+	public void setOffline(boolean offline)
 	{
 		this.offline = offline;
 	}
