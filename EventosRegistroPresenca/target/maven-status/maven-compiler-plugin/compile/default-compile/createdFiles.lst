@@ -1,0 +1,4 @@
+entidade\Evento.class
+apoio\ConexaoBD.class
+service\EventoService.class
+dao\EventoDAO.class
