@@ -1,15 +1,16 @@
 
 package entities;
 
-import java.util.Calendar;
+import java.io.Serializable;
+import java.util.Date;
 
-public class Pessoa {
+public class Pessoa implements Serializable {
     
     private Integer id;
     private String nome;
     private String cpf;
     private String email;
-    private Calendar dataNascimento;
+    private Date dataNascimento;
     private String senha;
 
     public Pessoa() {}
@@ -21,7 +22,7 @@ public class Pessoa {
         nome = val[1];
     }
     
-    public Pessoa(Integer id, String nome, String cpf, String email, Calendar dataNascimento, String senha) {
+    public Pessoa(Integer id, String nome, String cpf, String email, Date dataNascimento, String senha) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -62,11 +63,11 @@ public class Pessoa {
         this.email = email;
     }
 
-    public Calendar getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Calendar dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

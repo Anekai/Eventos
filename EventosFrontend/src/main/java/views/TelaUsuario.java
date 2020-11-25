@@ -444,7 +444,7 @@ public class TelaUsuario extends javax.swing.JDialog {
                     Calendar c = Calendar.getInstance();
                     c.setTime(sdf.parse(formatedFieldInsertDataNascimento.getText()));
                     
-                    entity.setDataNascimento(c);
+                    entity.setDataNascimento(sdf.parse(formatedFieldInsertDataNascimento.getText()));
                 } catch (ParseException ex) {
                     Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -476,7 +476,7 @@ public class TelaUsuario extends javax.swing.JDialog {
                     Calendar c = Calendar.getInstance();
                     c.setTime(sdf.parse(formatedFieldUpdateDataNascimento.getText()));
                     
-                    entity.setDataNascimento(c);
+                    entity.setDataNascimento(sdf.parse(formatedFieldUpdateDataNascimento.getText()));
                 } catch (ParseException ex) {
                     Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 }
