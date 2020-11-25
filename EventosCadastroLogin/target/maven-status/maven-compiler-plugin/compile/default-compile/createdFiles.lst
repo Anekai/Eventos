@@ -1,6 +1,13 @@
+types\SimNaoType.class
+dao\LoginDAO.class
+entidade\Pessoa.class
+framework\CalendarSerializer.class
 apoio\ConexaoBD.class
+entidade\Protesto.class
+entidade\RegistroEvento.class
+dao\CadastroDAO.class
+entidade\Evento.class
+framework\CalendarDeserializer.class
+types\TipoEventoType.class
 service\CadastroService.class
 service\LoginService.class
-dao\CadastroDAO.class
-dao\LoginDAO.class
-entidade\Protesto.class
