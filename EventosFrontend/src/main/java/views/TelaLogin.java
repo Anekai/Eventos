@@ -112,7 +112,8 @@ public class TelaLogin extends javax.swing.JFrame {
             labelLoginErro.setText("Informe login e senha");
             labelLoginErro.setVisible(true);
         } else {
-            PessoaService usuarioService = SpringConfig.context.getBean(PessoaService.class);
+            //PessoaService usuarioService = SpringConfig.context.getBean(PessoaService.class);
+            PessoaService usuarioService = new PessoaService();
             
             /*            
             String senha = new String(fieldSenha.getPassword());

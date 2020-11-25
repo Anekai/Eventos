@@ -1,7 +1,14 @@
 
 package services;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import entities.Evento;
 import entities.Pessoa;
+import framework.CalendarDeserializer;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -42,13 +49,20 @@ public class PessoaService {
         //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
         WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
-        WebTarget resourceWebTarget = webTarget.path("rest/evento/loginUsuario");
+        WebTarget resourceWebTarget = webTarget.path("rest/login/loginUsuario");
         Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
         Response response = invocationBuilder.get();
         
-        response.readEntity(String.class);
+        String r = response.readEntity(String.class);
         
-        return null;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeHierarchyAdapter(Calendar.class, new CalendarDeserializer());
+        Gson g = gsonBuilder.create();
+        
+        Pessoa p = g.fromJson(r, Pessoa.class);
+        System.out.println(p);
+        
+        return p;
     }
     
 }

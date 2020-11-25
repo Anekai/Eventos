@@ -1,15 +1,19 @@
 
 package views;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import entities.Evento;
+import entities.Pessoa;
 import framework.CalendarDeserializer;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -52,13 +56,11 @@ public class MainView {
         System.out.println(p);
         
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeHierarchyAdapter(Calendar.class, new CalendarDeserializer());
+        gsonBuilder.registerTypeAdapter(Date.class, new CalendarDeserializer());
         Gson g = gsonBuilder.create();
         
         List<Evento> e = g.fromJson(p, new TypeToken<ArrayList<Evento>>(){}.getType());
         System.out.println(e);
-        
-        
     }
     
 }

@@ -426,7 +426,7 @@ public class TelaEvento extends javax.swing.JDialog {
                     Calendar c = Calendar.getInstance();
                     c.setTime(sdf.parse(formatedFieldInsertDataEvento.getText()));
                     
-                    entity.setDataEvento(c);
+                    entity.setDataEvento(sdf.parse(formatedFieldInsertDataEvento.getText()));
                 } catch (ParseException ex) {
                     Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -453,7 +453,7 @@ public class TelaEvento extends javax.swing.JDialog {
                     Calendar c = Calendar.getInstance();
                     c.setTime(sdf.parse(formatedFieldUpdateDataEvento.getText()));
                     
-                    entity.setDataEvento(c);
+                    entity.setDataEvento(sdf.parse(formatedFieldUpdateDataEvento.getText()));
                 } catch (ParseException ex) {
                     Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 }

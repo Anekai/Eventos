@@ -1,32 +1,28 @@
 
 package framework;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import java.io.IOException;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
-public class CalendarDeserializer extends JsonDeserializer<Calendar> {
+public class CalendarDeserializer implements JsonDeserializer<Date> {
 
-    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    private final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
-    public Calendar deserialize(JsonParser jsonParser,
-                                DeserializationContext deserializationContext) 
-                                throws IOException {
-
-        String dateAsString = jsonParser.getText();
+    public Date deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException {
+        String dateAsString = je.getAsString();
 
         try {
-            Date date = formatter.parse(dateAsString);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            return calendar;
-        } catch (Exception e) {
-            throw new IOException(e);
+            return formatter.parse(dateAsString);
+        } catch (ParseException e) {
+            System.out.println(e);
+            return null;
         }
     }
 }
