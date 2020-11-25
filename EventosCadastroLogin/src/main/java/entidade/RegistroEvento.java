@@ -1,9 +1,10 @@
 
 package entidade;
 
+import java.io.Serializable;
 import types.SimNaoType;
 
-public class RegistroEvento {
+public class RegistroEvento implements Serializable {
     
     private Pessoa usuario;
     private Evento evento;

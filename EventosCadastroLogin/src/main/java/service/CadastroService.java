@@ -3,7 +3,7 @@ package service;
 
 import dao.CadastroDAO;
 import entidade.Evento;
-import entidade.Protesto;
+import entidade.Pessoa;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,6 +38,19 @@ public class CadastroService {
         p.add(new Evento(1, "Palestra A", TipoEventoType.PALESTRA, new Date()));
         
         return p;
+    }
+    
+    @POST
+    @Path("/cadastrarUsuario")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public boolean cadastrarUsuario(Pessoa p) {
+        System.out.println("---------------- Inserindo protestos "+p.toString());
+        try {
+            return (dao.cadastrarUsuario(p));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     
 }
