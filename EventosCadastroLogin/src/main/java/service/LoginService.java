@@ -2,6 +2,7 @@
 package service;
 
 import dao.LoginDAO;
+import entidade.Pessoa;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,15 +25,10 @@ public class LoginService {
     }
     
     @GET
-    @Path("/teste")
+    @Path("/loginUsuario/{email}/{senha}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<String> teste() {
-        System.out.println("---------------- Teste ----------------");
-        List<String> p = new ArrayList<>();
-        
-        p.add("Teste 1");
-        p.add("Teste 2");
-        p.add("Teste 3");
+    public Pessoa loginUsuario(@PathParam("email")String email, @PathParam("senha")String senha) {
+        Pessoa p = dao.findUsuario(email, senha);
         
         return p;
     }

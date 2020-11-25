@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import framework.CalendarDeserializer;
 import framework.CalendarSerializer;
 import java.util.Calendar;
+import java.util.Date;
 import types.TipoEventoType;
 
 public class Evento {
@@ -15,7 +16,7 @@ public class Evento {
     private TipoEventoType tipoEvento;
     @JsonSerialize(using = CalendarSerializer.class)
     @JsonDeserialize(using = CalendarDeserializer.class)
-    private Calendar dataEvento;
+    private Date dataEvento;
 
     public Evento(){}
     
@@ -26,7 +27,7 @@ public class Evento {
         nomeEvento = val[1];
     }
     
-    public Evento(Integer id, String nomeEvento, TipoEventoType tipoEvento, Calendar dataEvento) {
+    public Evento(Integer id, String nomeEvento, TipoEventoType tipoEvento, Date dataEvento) {
         this.id = id;
         this.nomeEvento = nomeEvento;
         this.tipoEvento = tipoEvento;
@@ -57,11 +58,11 @@ public class Evento {
         this.tipoEvento = tipoEvento;
     }
 
-    public Calendar getDataEvento() {
+    public Date getDataEvento() {
         return dataEvento;
     }
 
-    public void setDataEvento(Calendar dataEvento) {
+    public void setDataEvento(Date dataEvento) {
         this.dataEvento = dataEvento;
     }
     

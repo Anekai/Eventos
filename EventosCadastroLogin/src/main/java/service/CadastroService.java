@@ -35,7 +35,7 @@ public class CadastroService {
         List<Evento> p = new ArrayList<>();
         
         //p.add(new Protesto("0101010101", "Alexandre", new Date(), 10.0));
-        p.add(new Evento(1, "Palestra A", TipoEventoType.PALESTRA, Calendar.getInstance()));
+        p.add(new Evento(1, "Palestra A", TipoEventoType.PALESTRA, new Date()));
         
         return p;
     }
