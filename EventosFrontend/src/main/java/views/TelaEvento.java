@@ -65,7 +65,7 @@ public class TelaEvento extends javax.swing.JDialog {
             rowData[0] = evento.getId();
             rowData[1] = evento.getNomeEvento();
             rowData[2] = evento.getTipoEvento().getValue();
-            rowData[3] = evento.getDataEvento();
+            rowData[3] = new SimpleDateFormat("dd/MM/yyyy").format(evento.getDataEvento());
 
             model.addRow(rowData);
         }
@@ -111,7 +111,7 @@ public class TelaEvento extends javax.swing.JDialog {
         comboSearchTipoEvento = new javax.swing.JComboBox<>();
 
         dialogInsert.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        dialogInsert.setTitle("Cadastrar Produto");
+        dialogInsert.setTitle("Cadastrar Evento");
         dialogInsert.setModal(true);
         dialogInsert.setResizable(false);
         dialogInsert.setSize(new java.awt.Dimension(360, 200));
@@ -174,7 +174,7 @@ public class TelaEvento extends javax.swing.JDialog {
         );
 
         dialogUpdate.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        dialogUpdate.setTitle("Atualizar Produto");
+        dialogUpdate.setTitle("Atualizar Evento");
         dialogUpdate.setModal(true);
         dialogUpdate.setResizable(false);
         dialogUpdate.setSize(new java.awt.Dimension(300, 300));
@@ -249,7 +249,7 @@ public class TelaEvento extends javax.swing.JDialog {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Produtos");
+        setTitle("Cadastro de Eventos");
 
         buttonEditar.setText("Editar");
         buttonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -408,6 +408,12 @@ public class TelaEvento extends javax.swing.JDialog {
 
                 fieldInsertNome.setText("");
                 formatedFieldInsertDataEvento.setText("");
+                
+                comboInsertTipoEvento.removeAllItems();
+                
+                for ( TipoEventoType tipoEvento : TipoEventoType.values() ) {
+                    comboInsertTipoEvento.addItem(tipoEvento.getValue());
+                }
 
                 dialogInsert.setLocationRelativeTo(null);
                 dialogInsert.setVisible(true);

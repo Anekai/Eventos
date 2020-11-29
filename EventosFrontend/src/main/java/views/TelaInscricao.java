@@ -175,7 +175,7 @@ public class TelaInscricao extends javax.swing.JDialog {
         fieldSearchNomeEvento = new javax.swing.JTextField();
 
         dialogInsert.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        dialogInsert.setTitle("Cadastrar Produto");
+        dialogInsert.setTitle("Inscrever-se");
         dialogInsert.setModal(true);
         dialogInsert.setResizable(false);
         dialogInsert.setSize(new java.awt.Dimension(360, 200));
@@ -240,7 +240,7 @@ public class TelaInscricao extends javax.swing.JDialog {
         );
 
         dialogUpdate.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        dialogUpdate.setTitle("Atualizar Produto");
+        dialogUpdate.setTitle("Atualizar Inscrição");
         dialogUpdate.setModal(true);
         dialogUpdate.setResizable(false);
         dialogUpdate.setSize(new java.awt.Dimension(300, 300));
@@ -333,7 +333,7 @@ public class TelaInscricao extends javax.swing.JDialog {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Produtos");
+        setTitle("Inscrições");
 
         buttonEditar.setText("Editar");
         buttonEditar.addActionListener(new java.awt.event.ActionListener() {

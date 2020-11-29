@@ -27,19 +27,6 @@ public class CadastroService {
         dao = new CadastroDAO();
     }
     
-    @GET
-    @Path("/teste")
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<Evento> teste() {
-        System.out.println("---------------- Teste ----------------");
-        List<Evento> p = new ArrayList<>();
-        
-        //p.add(new Protesto("0101010101", "Alexandre", new Date(), 10.0));
-        p.add(new Evento(1, "Palestra A", TipoEventoType.PALESTRA, new Date()));
-        
-        return p;
-    }
-    
     @POST
     @Path("/cadastrarUsuario")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -50,6 +37,66 @@ public class CadastroService {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+    
+    @PUT
+    @Path("/atualizarUsuario")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public boolean atualizarUsuario(Pessoa pessoa) {
+        try {
+            return (dao.atualizarUsuario(pessoa));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    @POST
+    @Path("/buscarUsuarios")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public List<Pessoa> buscarUsuarios(Pessoa pessoa) {
+        try {
+            return (dao.findUsuarios(pessoa));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    @POST
+    @Path("/cadastrarEvento")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public boolean cadastrarEvento(Evento evento) {
+        try {
+            return (dao.cadastrarEvento(evento));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    @PUT
+    @Path("/atualizarEvento")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public boolean atualizarEvento(Evento evento) {
+        try {
+            return (dao.atualizarEvento(evento));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    @POST
+    @Path("/buscarEventos")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public List<Evento> buscarEventos(Evento evento) {
+        try {
+            return (dao.findEventos(evento));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
     

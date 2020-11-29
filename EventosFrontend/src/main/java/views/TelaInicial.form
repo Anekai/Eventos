@@ -68,9 +68,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemEventos">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+E"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Eventos"/>
               </Properties>
               <Events>
@@ -79,9 +76,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemInscricoes">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+I"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Inscri&#xe7;&#xf5;es"/>
               </Properties>
               <Events>
@@ -90,9 +84,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemUsuarios">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+U"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Usu&#xe1;rios"/>
               </Properties>
               <Events>
@@ -106,7 +97,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Doce Amanhecer"/>
+    <Property name="title" type="java.lang.String" value="Eventus"/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
       <Color id="Default Cursor"/>
     </Property>
@@ -162,9 +153,6 @@
           </Border>
         </Property>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Registrar Presen&#xe7;a"/>
-      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">

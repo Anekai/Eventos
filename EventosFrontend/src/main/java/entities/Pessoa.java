@@ -1,6 +1,8 @@
 
 package entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import framework.CalendarSerializer;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ public class Pessoa implements Serializable {
     private String nome;
     private String cpf;
     private String email;
+    @JsonSerialize(using = CalendarSerializer.class)
     private Date dataNascimento;
     private String senha;
 

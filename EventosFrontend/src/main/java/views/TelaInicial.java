@@ -204,7 +204,7 @@ public class TelaInicial extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Doce Amanhecer");
+        setTitle("Eventus");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         panelRegistroPresenca.setBorder(javax.swing.BorderFactory.createTitledBorder("Registrar Presença"));
@@ -370,7 +370,6 @@ public class TelaInicial extends javax.swing.JFrame {
 
         menuCadastro.setText("Menu");
 
-        menuItemEventos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
         menuItemEventos.setText("Eventos");
         menuItemEventos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -379,7 +378,6 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         menuCadastro.add(menuItemEventos);
 
-        menuItemInscricoes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
         menuItemInscricoes.setText("Inscrições");
         menuItemInscricoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -388,7 +386,6 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         menuCadastro.add(menuItemInscricoes);
 
-        menuItemUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         menuItemUsuarios.setText("Usuários");
         menuItemUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -421,8 +418,6 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(panelInscricaoRapida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        panelRegistroPresenca.getAccessibleContext().setAccessibleName("Registrar Presença");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

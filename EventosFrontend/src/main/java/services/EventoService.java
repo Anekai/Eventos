@@ -1,10 +1,18 @@
 
 package services;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import entities.Evento;
+import entities.Pessoa;
+import framework.CalendarDeserializer;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
@@ -16,17 +24,26 @@ public class EventoService {
         Client client = ClientBuilder.newClient();
 
         //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosRegistroPresenca");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
-        WebTarget resourceWebTarget = webTarget.path("rest/evento/insert");
-        Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
-        Response response = invocationBuilder.get();
+        WebTarget resourceWebTarget = webTarget.path("rest/cadastro/cadastrarEvento");
+        Invocation.Builder invocationBuilder = resourceWebTarget.request();
+        Response response = invocationBuilder.post(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));
         
         System.out.println("Response: " + response.readEntity(String.class));
     }
 
     public void update(Evento entity) {
-        //dao.update(entity);
+        Client client = ClientBuilder.newClient();
+
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/cadastro/atualizarEvento");
+        Invocation.Builder invocationBuilder = resourceWebTarget.request();
+        Response response = invocationBuilder.put(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));
+        
+        System.out.println("Response: " + response.readEntity(String.class));
     }
 
     public void delete(Evento entity) {
@@ -42,7 +59,28 @@ public class EventoService {
     }
     
     public List<Evento> find(Evento entity) {
-        return null; //dao.find(entity);
+        Client client = ClientBuilder.newClient();
+
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/cadastro/buscarEventos");
+        Invocation.Builder invocationBuilder = resourceWebTarget.request();
+        Response response = invocationBuilder.post(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));
+        
+        System.out.println("-- Response --");
+        System.out.println(response.getStatus());
+        String r = response.readEntity(String.class);
+        System.out.println(r);
+        
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Date.class, new CalendarDeserializer());
+        Gson g = gsonBuilder.create();
+        
+        List<Evento> eventos = g.fromJson(r, new TypeToken<ArrayList<Evento>>(){}.getType());
+        System.out.println(eventos);
+        
+        return eventos;
     }
     
 }

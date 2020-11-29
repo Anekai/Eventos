@@ -4,9 +4,6 @@ package dao;
 import apoio.ConexaoBD;
 import entidade.Pessoa;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public class LoginDAO {
     
@@ -23,11 +20,6 @@ public class LoginDAO {
                 p.setNome(resultado.getString("nome"));
                 p.setCpf(resultado.getString("cpf"));
                 p.setEmail(resultado.getString("email"));
-                
-                Calendar c = Calendar.getInstance();
-                
-                c.setTime(resultado.getDate("data_nascimento"));
-                
                 p.setDataNascimento(resultado.getDate("data_nascimento"));
                 p.setSenha(resultado.getString("senha"));
 

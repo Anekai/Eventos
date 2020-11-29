@@ -1,12 +1,9 @@
 
 package entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import framework.CalendarDeserializer;
 import framework.CalendarSerializer;
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import types.TipoEventoType;
 
@@ -15,8 +12,7 @@ public class Evento implements Serializable {
     private Integer id;
     private String nomeEvento;
     private TipoEventoType tipoEvento;
-    //@JsonSerialize(using = CalendarSerializer.class)
-    //@JsonDeserialize(using = CalendarDeserializer.class)
+    @JsonSerialize(using = CalendarSerializer.class)
     private Date dataEvento;
 
     public Evento(){}

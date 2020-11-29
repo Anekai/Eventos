@@ -21,6 +21,7 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import types.TipoEventoType;
 
 public class MainView {
     
@@ -36,8 +37,10 @@ public class MainView {
         
         MainView r = new MainView();
         
-        r.getTest();
+        //r.getTest();
         //r.postTest();
+        r.getEventoTest();
+        //r.postEventoTest();
     }
     
     public void getTest() {
@@ -83,14 +86,64 @@ public class MainView {
         
         Date data = null;
         try {
-            data = new SimpleDateFormat("dd/MM/yyyy").parse("05/08/1999");
+            data = new SimpleDateFormat("dd/MM/yyyy").parse("01/10/2020");
         } catch (ParseException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Pessoa obj = new Pessoa(null, "Pedro", "03074062036", "pedro.assis@universo.univates.br", data, "teste123");
+        Pessoa obj = new Pessoa(null, "Carlos Santana", "03074062036", "carlos.santana@universo.univates.br", data, "teste123");
         
         WebTarget resourceWebTarget = webTarget.path("rest/cadastro/cadastrarUsuario");
+        Invocation.Builder invocationBuilder = resourceWebTarget.request();
+        Response response = invocationBuilder.post(Entity.entity(obj, MediaType.APPLICATION_JSON_TYPE));
+        
+        System.out.println("-- Response --");
+        System.out.println(response.getStatus());
+        System.out.println(response.readEntity(String.class));
+    }
+    
+    public void getEventoTest() {
+        Client client = ClientBuilder.newClient();
+
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        
+        Evento evento = new Evento(null, "Industria 4.0", null, null);
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/cadastro/buscarEventos");
+        Invocation.Builder invocationBuilder = resourceWebTarget.request();
+        Response response = invocationBuilder.post(Entity.entity(evento, MediaType.APPLICATION_JSON_TYPE));
+        
+        System.out.println("-- Response --");
+        System.out.println(response.getStatus());
+        String r = response.readEntity(String.class);
+        System.out.println(r);
+        
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Date.class, new CalendarDeserializer());
+        Gson g = gsonBuilder.create();
+        
+        List<Evento> eventos = g.fromJson(r, new TypeToken<ArrayList<Evento>>(){}.getType());
+        
+        System.out.println(eventos);
+    }
+    
+    public void postEventoTest() {
+        Client client = ClientBuilder.newClient();
+
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        
+        Date data = null;
+        try {
+            data = new SimpleDateFormat("dd/MM/yyyy").parse("01/10/2020");
+        } catch (ParseException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Evento obj = new Evento(null, "Industria 4.0", TipoEventoType.PALESTRA, data);
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/cadastro/cadastrarEvento");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
         Response response = invocationBuilder.post(Entity.entity(obj, MediaType.APPLICATION_JSON_TYPE));
         
