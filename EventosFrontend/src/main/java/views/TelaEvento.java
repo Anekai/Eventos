@@ -118,6 +118,12 @@ public class TelaEvento extends javax.swing.JDialog {
 
         jLabel6.setText("Nome:");
 
+        fieldInsertNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldInsertNomeActionPerformed(evt);
+            }
+        });
+
         buttonInsertSalvar.setText("Salvar");
         buttonInsertSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,6 +480,10 @@ public class TelaEvento extends javax.swing.JDialog {
             }
         });
     }//GEN-LAST:event_buttonUpdateSalvarActionPerformed
+
+    private void fieldInsertNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldInsertNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldInsertNomeActionPerformed
 
     /**
      * @param args the command line arguments

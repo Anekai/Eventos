@@ -4,12 +4,14 @@ package views;
 import entities.Pessoa;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import services.PessoaService;
+import types.TipoEventoType;
 
 public class TelaUsuario extends javax.swing.JDialog {
 
@@ -79,6 +81,19 @@ public class TelaUsuario extends javax.swing.JDialog {
         fieldUpdateEmail = new javax.swing.JTextField();
         formatedFieldUpdateDataNascimento = new javax.swing.JFormattedTextField();
         fieldUpdateSenha = new javax.swing.JPasswordField();
+        dialogInsert = new javax.swing.JDialog();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        fieldInsertNome = new javax.swing.JTextField();
+        buttonInsertSalvar = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        fieldInsertCpf = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        fieldInsertEmail = new javax.swing.JTextField();
+        formatedFieldInsertDataNascimento = new javax.swing.JFormattedTextField();
+        fieldInsertSenha = new javax.swing.JPasswordField();
         buttonEditar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -87,6 +102,7 @@ public class TelaUsuario extends javax.swing.JDialog {
         fieldSearchId = new javax.swing.JTextField();
         fieldSearchNome = new javax.swing.JTextField();
         buttonPesquisar = new javax.swing.JButton();
+        buttonNovo = new javax.swing.JButton();
 
         dialogUpdate.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         dialogUpdate.setTitle("Atualizar Usuário");
@@ -183,6 +199,98 @@ public class TelaUsuario extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        dialogInsert.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        dialogInsert.setTitle("Atualizar Usuário");
+        dialogInsert.setModal(true);
+        dialogInsert.setResizable(false);
+        dialogInsert.setSize(new java.awt.Dimension(412, 410));
+
+        jLabel6.setText("Nome:");
+
+        jLabel8.setText("Preencha os campos abaixo:");
+
+        buttonInsertSalvar.setText("Salvar");
+        buttonInsertSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonInsertSalvarActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("CPF:");
+
+        jLabel18.setText("Data Nascimento:");
+
+        jLabel21.setText("Senha:");
+
+        jLabel9.setText("Email:");
+
+        javax.swing.GroupLayout dialogInsertLayout = new javax.swing.GroupLayout(dialogInsert.getContentPane());
+        dialogInsert.getContentPane().setLayout(dialogInsertLayout);
+        dialogInsertLayout.setHorizontalGroup(
+            dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogInsertLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogInsertLayout.createSequentialGroup()
+                        .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(dialogInsertLayout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(formatedFieldInsertDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dialogInsertLayout.createSequentialGroup()
+                                .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel11))
+                                .addGap(64, 64, 64)
+                                .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fieldInsertNome)
+                                    .addComponent(fieldInsertCpf)))
+                            .addGroup(dialogInsertLayout.createSequentialGroup()
+                                .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel21))
+                                .addGap(61, 61, 61)
+                                .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fieldInsertEmail)
+                                    .addComponent(fieldInsertSenha))))
+                        .addGap(30, 30, 30))
+                    .addGroup(dialogInsertLayout.createSequentialGroup()
+                        .addComponent(buttonInsertSalvar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(dialogInsertLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        dialogInsertLayout.setVerticalGroup(
+            dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogInsertLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(fieldInsertNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(fieldInsertCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(formatedFieldInsertDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldInsertEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(fieldInsertSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                .addComponent(buttonInsertSalvar)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Usuários");
 
@@ -237,6 +345,13 @@ public class TelaUsuario extends javax.swing.JDialog {
             }
         });
 
+        buttonNovo.setText("Novo");
+        buttonNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNovoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -246,7 +361,9 @@ public class TelaUsuario extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonPesquisar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonNovo)
+                        .addGap(10, 10, 10)
                         .addComponent(buttonEditar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -273,7 +390,8 @@ public class TelaUsuario extends javax.swing.JDialog {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonPesquisar)
-                    .addComponent(buttonEditar))
+                    .addComponent(buttonEditar)
+                    .addComponent(buttonNovo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -327,13 +445,54 @@ public class TelaUsuario extends javax.swing.JDialog {
                 fieldUpdateCpf.setText("");
                 fieldUpdateEmail.setText("");
                 fieldUpdateSenha.setText("");
-                formatedFieldUpdateDataNascimento.setText("");
                 
                 dialogUpdate.dispose();
                 load();
             }
         });
     }//GEN-LAST:event_buttonUpdateSalvarActionPerformed
+
+    private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                entity = new Pessoa();
+
+                fieldInsertCpf.setText("");
+                fieldInsertEmail.setText("");
+                fieldInsertNome.setText("");
+                fieldInsertSenha.setText("");
+                dialogInsert.setLocationRelativeTo(null);
+                dialogInsert.setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_buttonNovoActionPerformed
+
+    private void buttonInsertSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertSalvarActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                entity.setCpf(fieldInsertCpf.getText());
+                entity.setNome(fieldInsertNome.getText());
+                entity.setSenha(String.valueOf(fieldInsertSenha.getPassword()));
+                entity.setEmail(fieldInsertEmail.getText());                            
+                try {
+                    entity.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(formatedFieldUpdateDataNascimento.getText()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                pessoaService.insert(entity);
+                
+                fieldInsertNome.setText("");
+                fieldInsertEmail.setText("");
+                fieldInsertSenha.setText("");
+                fieldInsertCpf.setText("");
+                formatedFieldInsertDataNascimento.setText("");
+                        
+                dialogInsert.dispose();
+                load();
+            }
+        });
+    }//GEN-LAST:event_buttonInsertSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -442,9 +601,16 @@ public class TelaUsuario extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEditar;
+    private javax.swing.JButton buttonInsertSalvar;
+    private javax.swing.JButton buttonNovo;
     private javax.swing.JButton buttonPesquisar;
     private javax.swing.JButton buttonUpdateSalvar;
+    private javax.swing.JDialog dialogInsert;
     private javax.swing.JDialog dialogUpdate;
+    private javax.swing.JTextField fieldInsertCpf;
+    private javax.swing.JTextField fieldInsertEmail;
+    private javax.swing.JTextField fieldInsertNome;
+    private javax.swing.JPasswordField fieldInsertSenha;
     private javax.swing.JTextField fieldSearchId;
     private javax.swing.JTextField fieldSearchNome;
     private javax.swing.JTextField fieldUpdateCpf;
@@ -452,15 +618,22 @@ public class TelaUsuario extends javax.swing.JDialog {
     private javax.swing.JTextField fieldUpdateId;
     private javax.swing.JTextField fieldUpdateNome;
     private javax.swing.JPasswordField fieldUpdateSenha;
+    private javax.swing.JFormattedTextField formatedFieldInsertDataNascimento;
     private javax.swing.JFormattedTextField formatedFieldUpdateDataNascimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableUsuario;
     // End of variables declaration//GEN-END:variables
