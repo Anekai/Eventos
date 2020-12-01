@@ -1,6 +1,10 @@
 
 package views;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 import configuration.ParamConfig;
 import configuration.SpringConfig;
 import entities.Evento;
@@ -8,9 +12,14 @@ import entities.Pessoa;
 import entities.RegistroEvento;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import services.EventoService;
 import services.PessoaService;
@@ -189,6 +198,8 @@ public class TelaInscricao extends javax.swing.JDialog {
         fieldUpdateNomeEvento = new javax.swing.JTextField();
         buttonGerarCertificado = new javax.swing.JButton();
         buttonCancelarInscricao = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        fieldUpdateCodigoValidacao = new javax.swing.JTextField();
         buttonEditar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -304,6 +315,10 @@ public class TelaInscricao extends javax.swing.JDialog {
             }
         });
 
+        jLabel3.setText("Código:");
+
+        fieldUpdateCodigoValidacao.setFocusable(false);
+
         javax.swing.GroupLayout dialogUpdateLayout = new javax.swing.GroupLayout(dialogUpdate.getContentPane());
         dialogUpdate.getContentPane().setLayout(dialogUpdateLayout);
         dialogUpdateLayout.setHorizontalGroup(
@@ -329,7 +344,11 @@ public class TelaInscricao extends javax.swing.JDialog {
                     .addGroup(dialogUpdateLayout.createSequentialGroup()
                         .addComponent(buttonCancelarInscricao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonGerarCertificado)))
+                        .addComponent(buttonGerarCertificado))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogUpdateLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(fieldUpdateCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 122, Short.MAX_VALUE))
         );
         dialogUpdateLayout.setVerticalGroup(
@@ -349,7 +368,11 @@ public class TelaInscricao extends javax.swing.JDialog {
                 .addGroup(dialogUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(fieldUpdatePresenca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dialogUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(fieldUpdateCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addGroup(dialogUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonGerarCertificado)
                     .addComponent(buttonCancelarInscricao))
@@ -474,7 +497,7 @@ public class TelaInscricao extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 entity = new RegistroEvento();
-                //entity.setId((Integer) tableProduto.getValueAt(tableProduto.getSelectedRow(), 0));
+                
                 entity.setUsuario(new Pessoa((String) tableInscricao.getValueAt(tableInscricao.getSelectedRow(), 0)));
                 entity.setEvento(new Evento((String) tableInscricao.getValueAt(tableInscricao.getSelectedRow(), 1)));
                 
@@ -485,6 +508,7 @@ public class TelaInscricao extends javax.swing.JDialog {
                 fieldUpdateIdEvento.setText(String.valueOf(entity.getEvento().getId()));
                 fieldUpdateNomeEvento.setText(entity.getEvento().getNomeEvento());
                 fieldUpdatePresenca.setText(entity.getPresenca().getValue());
+                fieldUpdateCodigoValidacao.setText(entity.getCodigoValidacao());
                 
                 dialogUpdate.setLocationRelativeTo(null);
                 dialogUpdate.setVisible(true);
@@ -536,7 +560,38 @@ public class TelaInscricao extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonInsertSalvarActionPerformed
 
     private void buttonGerarCertificadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGerarCertificadoActionPerformed
-        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                
+                String codigo = fieldUpdateCodigoValidacao.getText();
+                RegistroEvento re = registroEventoService.findByCodigo(codigo);
+                
+                if ( re != null ) {
+                    String text = "Certificamos que "+re.getUsuario().getNome()+" participou do evento "+re.getEvento().getNomeEvento()+". Codigo de validacao: "+codigo;
+                    Paragraph para = new Paragraph (text);
+                    String dest = "C:/itextExamples/"+codigo+".pdf"; 
+                    try {
+                        File directory = new File("C:/itextExamples");
+                        if (!directory.exists()){
+                            directory.mkdir();
+                        }
+                        
+                        PdfWriter writer = new PdfWriter(dest);
+                        // Creating a PdfDocument  
+                        PdfDocument pdfDoc = new PdfDocument(writer);
+                        // Adding an empty page 
+                        pdfDoc.addNewPage(); 
+                        // Creating a Document   
+                        Document document = new Document(pdfDoc); 
+                        document.add(para);
+                        document.close();              
+                        JOptionPane.showMessageDialog(rootPane, "PDF gerado em "+dest);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
     }//GEN-LAST:event_buttonGerarCertificadoActionPerformed
 
     private void buttonCancelarInscricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarInscricaoActionPerformed
@@ -612,6 +667,7 @@ public class TelaInscricao extends javax.swing.JDialog {
     private javax.swing.JTextField fieldInsertNomeUsuario;
     private javax.swing.JTextField fieldSearchIdUsuario;
     private javax.swing.JTextField fieldSearchNomeUsuario;
+    private javax.swing.JTextField fieldUpdateCodigoValidacao;
     private javax.swing.JTextField fieldUpdateIdEvento;
     private javax.swing.JTextField fieldUpdateIdUsuario;
     private javax.swing.JTextField fieldUpdateNomeEvento;
@@ -621,6 +677,7 @@ public class TelaInscricao extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;

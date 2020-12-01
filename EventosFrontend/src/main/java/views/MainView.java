@@ -39,13 +39,13 @@ public class MainView {
         
         MainView r = new MainView();
         
-        //r.postTest();
+        r.postTest();
         //r.getTest();
         //r.postEventoTest();
         //r.getEventoTest();
         //r.postRegistroEventoTest();
         //r.getRegistroEventoTest();
-        r.deleteRegistroEventoTeste();
+        //r.deleteRegistroEventoTeste();
     }
     
     public void getTest() {
@@ -86,17 +86,17 @@ public class MainView {
     public void postTest() {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         Date data = null;
         try {
-            data = new SimpleDateFormat("dd/MM/yyyy").parse("01/10/2020");
+            data = new SimpleDateFormat("dd/MM/yyyy").parse("15/03/1996");
         } catch (ParseException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Pessoa obj = new Pessoa(null, "Carlos Santana", "03074062036", "carlos.santana@universo.univates.br", data, "teste123");
+        Pessoa obj = new Pessoa(null, "Leandro Augusto", "96314785245", "leandro.augusto@universo.univates.br", data, "teste123");
         
         WebTarget resourceWebTarget = webTarget.path("rest/cadastro/cadastrarUsuario");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();

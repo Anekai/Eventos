@@ -459,8 +459,10 @@ public class TelaInicial extends javax.swing.JFrame {
             entityInscricao.setUsuario(new Pessoa(null, fieldNomeUsuario.getText(), fieldCpfUsuario.getText(), fieldEmailUsuario.getText(), null, null));
         }
         
+        entityInscricao.setEvento(eventos.get(comboEventoInscricao.getSelectedIndex()));
+        
         if ( registroEventoService.inscricaoRapida(entityInscricao) ) {
-            labelPresencaInfo.setText("Inscrição confirmada!");
+            labelInscricaoInfo.setText("Inscrição confirmada!");
             
             fieldIdUsuarioInscricao.setText("");
             fieldNomeUsuarioInscricao.setText("");
@@ -475,7 +477,7 @@ public class TelaInicial extends javax.swing.JFrame {
             
             entityInscricao = new RegistroEvento();
         } else {
-            labelPresencaInfo.setText("Erro ao confirmar inscrição rápida!");
+            labelInscricaoInfo.setText("Erro ao confirmar inscrição rápida!");
         }
     }//GEN-LAST:event_buttonInscricaoRapidaActionPerformed
 

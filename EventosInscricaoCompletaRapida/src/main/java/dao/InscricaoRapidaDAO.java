@@ -67,6 +67,7 @@ public class InscricaoRapidaDAO {
             return true;
         } catch (Exception e) {
             System.out.println("Erro ao realizar inscrição rápida: " + e);
+            e.printStackTrace();
             return false;
         }
     }

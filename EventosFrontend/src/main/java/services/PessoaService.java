@@ -4,11 +4,9 @@ package services;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import entities.Evento;
 import entities.Pessoa;
 import framework.CalendarDeserializer;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ws.rs.client.Client;
@@ -54,7 +52,7 @@ public class PessoaService {
     public Pessoa findById(Integer id) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosRegistroPresenca-1.0");
         WebTarget webTarget = client.target("http://localhost:8080/EventosRegistroPresenca");
         
         WebTarget resourceWebTarget = webTarget.path("rest/registroPresenca/buscarUsuario/" + id);

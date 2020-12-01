@@ -23,7 +23,9 @@ public class InscricaoRapidaService {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public boolean inscricaoRapida(RegistroEvento registroEvento) {
         try {
-            if ( registroEvento.getUsuario().getId() == null ) {
+            System.out.println(registroEvento);
+            
+            if ( registroEvento.getUsuario() == null || registroEvento.getUsuario().getId() == null ) {
                 dao.cadastroParcialUsuario(registroEvento.getUsuario());
                 
                 registroEvento.setUsuario(dao.buscaUsuario(registroEvento.getUsuario()));

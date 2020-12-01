@@ -17,7 +17,7 @@ public class ConsultaInscricaoDAO {
             StringBuilder sql = new StringBuilder();
             
             sql.append(" SELECT reev.* ")
-               .append(" ,      pess.nome nome ")
+               .append(" ,      pess.nome ")
                .append(" ,      even.nome_evento ")
                .append(" FROM   registro_evento reev ")
                .append(" INNER JOIN pessoa pess ON reev.pessoa_id = pess.id ")

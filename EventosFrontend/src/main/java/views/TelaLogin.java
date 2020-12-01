@@ -6,22 +6,16 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
-import configuration.ConexaoBD;
 import configuration.ParamConfig;
 import entities.Pessoa;
 import entities.RegistroEvento;
-import entities.RegistroEventoTemp;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import org.dom4j.DocumentException;
 import services.EventoService;
 import services.PessoaService;
 import services.RegistroEventoService;
@@ -166,12 +160,6 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel10.setText("Código de validação");
 
-        fieldCodigoValidacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldCodigoValidacaoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout dialogCertificadosLayout = new javax.swing.GroupLayout(dialogCertificados.getContentPane());
         dialogCertificados.getContentPane().setLayout(dialogCertificadosLayout);
         dialogCertificadosLayout.setHorizontalGroup(
@@ -183,11 +171,11 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(dialogCertificadosLayout.createSequentialGroup()
                 .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                        .addGap(143, 143, 143)
-                        .addComponent(buttonGerar))
-                    .addGroup(dialogCertificadosLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addComponent(fieldCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fieldCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dialogCertificadosLayout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(buttonGerar)))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         dialogCertificadosLayout.setVerticalGroup(
@@ -301,36 +289,6 @@ public class TelaLogin extends javax.swing.JFrame {
             labelLoginErro.setText("Informe login e senha");
             labelLoginErro.setVisible(true);
         } else {
-            //PessoaService usuarioService = SpringConfig.context.getBean(PessoaService.class);
-            
-            /*            
-            String senha = new String(fieldSenha.getPassword());
-
-            try {
-                // Create MessageDigest instance for MD5
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                //Add password bytes to digest
-                md.update(senha.getBytes());
-                //Get the hash's bytes
-                byte[] bytes = md.digest();
-                //This bytes[] has bytes in decimal format;
-                //Convert it to hexadecimal format
-                StringBuilder sb = new StringBuilder();
-                for(int i=0; i< bytes.length ;i++) {
-                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-                }
-                //Get complete hashed password in hex format
-                senha = sb.toString();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } */
-            
-//            funcionarioLogado = usuarioService.findById(3);
-            
-//            funcionarioLogado.setSenha(senha);
-            
-//            usuarioService.update(funcionarioLogado);
-            
             Pessoa usuarioLogado = pessoaService.loginUsuario(fieldLogin.getText(), new String(fieldSenha.getPassword()));
 
             if ( usuarioLogado != null ){
@@ -409,36 +367,36 @@ public class TelaLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-            String codigo = fieldCodigoValidacao.getText();
-            RegistroEvento re = registroEventoService.findByCodigo(codigo);
+                String codigo = fieldCodigoValidacao.getText();
+                RegistroEvento re = registroEventoService.findByCodigo(codigo);
                 
-                String text = "Certificamos que "+re.getUsuario().getNome()+" participou do evento "+re.getEvento().getNomeEvento()+". Codigo de validacao: "+codigo;
-                Paragraph para = new Paragraph (text);
-                String dest = "C:/itextExamples/"+codigo+".pdf"; 
-                try {
-                    PdfWriter writer = new PdfWriter(dest);
-                     // Creating a PdfDocument  
-                    PdfDocument pdfDoc = new PdfDocument(writer);
-                    // Adding an empty page 
-                    pdfDoc.addNewPage(); 
-                    // Creating a Document   
-                    Document document = new Document(pdfDoc); 
-                    document.add(para);
-                    document.close();              
-                    JOptionPane.showMessageDialog(rootPane, "PDF gerado em "+dest);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                if ( re != null ) {
+                    String text = "Certificamos que "+re.getUsuario().getNome()+" participou do evento "+re.getEvento().getNomeEvento()+". Codigo de validacao: "+codigo;
+                    Paragraph para = new Paragraph (text);
+                    String dest = "C:/itextExamples/"+codigo+".pdf"; 
+                    try {
+                        File directory = new File("C:/itextExamples");
+                        if (!directory.exists()){
+                            directory.mkdir();
+                        }
+                        
+                        PdfWriter writer = new PdfWriter(dest);
+                        // Creating a PdfDocument  
+                        PdfDocument pdfDoc = new PdfDocument(writer);
+                        // Adding an empty page 
+                        pdfDoc.addNewPage(); 
+                        // Creating a Document   
+                        Document document = new Document(pdfDoc); 
+                        document.add(para);
+                        document.close();              
+                        JOptionPane.showMessageDialog(rootPane, "PDF gerado em "+dest);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-                
-            
-                
             }
         });
     }//GEN-LAST:event_buttonGerarActionPerformed
-
-    private void fieldCodigoValidacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCodigoValidacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldCodigoValidacaoActionPerformed
 
     /**
      * @param args the command line arguments
