@@ -9,6 +9,7 @@ import com.itextpdf.layout.element.Paragraph;
 import configuration.ConexaoBD;
 import configuration.ParamConfig;
 import entities.Pessoa;
+import entities.RegistroEvento;
 import entities.RegistroEventoTemp;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -416,23 +417,23 @@ public class TelaLogin extends javax.swing.JFrame {
                .append(" FROM   pessoa p, registro_evento re")
                .append(" WHERE re.codigo_validacao = '" + codigo + "'");
             
-            RegistroEventoTemp resultados = new RegistroEventoTemp();
+            RegistroEvento registro = new RegistroEvento();
                 try {
                     ResultSet resultado = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql.toString());
                     
                     while (resultado.next()) {
-                RegistroEventoTemp p = new RegistroEventoTemp();
+                RegistroEvento re = new RegistroEvento();
 
-                p.setNomeUsuario(resultado.getString("nome_pessoa"));
-                p.setNomeEvento(resultado.getString("nome_evento"));
+                re.getUsuario().setNome(resultado.getString("nome_pessoa"));
+                re.getEvento().setNomeEvento(resultado.getString("nome_evento"));
                 
-                resultados = p;
+                registro = re;
             }
                 } catch (SQLException ex) {
                     Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                String text = "Certificamos que "+resultados.getNomeUsuario()+" participou do evento "+resultados.getNomeEvento()+". Codigo de validacao: "+codigo;
+                String text = "Certificamos que "+registro.getUsuario().getNome()+" participou do evento "+registro.getEvento().getNomeEvento()+". Codigo de validacao: "+codigo;
                 Paragraph para = new Paragraph (text);
                 String dest = "C:/itextExamples/"+codigo+".pdf"; 
                 try {
