@@ -113,4 +113,27 @@ public class RegistroEventoService {
         return true;
     }
     
+    public RegistroEvento findByCodigo(String codigo) {
+        Client client = ClientBuilder.newClient();
+
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosEmissaoValidacaoCertificado");
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/evento/codigoValidacao/" + codigo);
+        Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
+        Response response = invocationBuilder.get();
+        
+        String r = response.readEntity(String.class);
+        
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeHierarchyAdapter(Date.class, new CalendarDeserializer());
+        Gson g = gsonBuilder.create();
+        
+        System.out.println(r);
+        RegistroEvento re = g.fromJson(r, RegistroEvento.class);
+        System.out.println(re);
+        
+        return re;
+    }
+    
 }
