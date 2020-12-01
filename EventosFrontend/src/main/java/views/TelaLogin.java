@@ -1,17 +1,29 @@
 
 package views;
 
+
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import configuration.ConexaoBD;
 import configuration.ParamConfig;
-import configuration.SpringConfig;
 import entities.Pessoa;
+import entities.RegistroEventoTemp;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import org.dom4j.DocumentException;
 import services.EventoService;
 import services.PessoaService;
 import services.RegistroEventoService;
-
 public class TelaLogin extends javax.swing.JFrame {
 
     private Pessoa usuarioCadastro;
@@ -50,13 +62,9 @@ public class TelaLogin extends javax.swing.JFrame {
         fieldEmailUsuario = new javax.swing.JTextField();
         fieldSenhaUsuario = new javax.swing.JPasswordField();
         dialogCertificados = new javax.swing.JDialog();
-        jLabel7 = new javax.swing.JLabel();
-        fieldInsertIdUsuario1 = new javax.swing.JTextField();
-        buttonInsertSalvar1 = new javax.swing.JButton();
+        buttonGerar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        fieldInsertIdEvento1 = new javax.swing.JTextField();
-        fieldInsertNomeUsuario1 = new javax.swing.JTextField();
-        fieldInsertNomeEvento1 = new javax.swing.JTextField();
+        fieldCodigoValidacao = new javax.swing.JTextField();
         panelLogin = new javax.swing.JPanel();
         labelLogin = new javax.swing.JLabel();
         fieldLogin = new javax.swing.JTextField();
@@ -148,63 +156,49 @@ public class TelaLogin extends javax.swing.JFrame {
         dialogCertificados.setResizable(false);
         dialogCertificados.setSize(new java.awt.Dimension(360, 200));
 
-        jLabel7.setText("Usuário:");
-
-        fieldInsertIdUsuario1.setEditable(false);
-        fieldInsertIdUsuario1.setFocusable(false);
-
-        buttonInsertSalvar1.setText("Salvar");
-        buttonInsertSalvar1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGerar.setText("Gerar");
+        buttonGerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonInsertSalvar1ActionPerformed(evt);
+                buttonGerarActionPerformed(evt);
             }
         });
 
-        jLabel10.setText("Evento:");
+        jLabel10.setText("Código de validação");
 
-        fieldInsertNomeUsuario1.setEditable(false);
-        fieldInsertNomeUsuario1.setFocusable(false);
+        fieldCodigoValidacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldCodigoValidacaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout dialogCertificadosLayout = new javax.swing.GroupLayout(dialogCertificados.getContentPane());
         dialogCertificados.getContentPane().setLayout(dialogCertificadosLayout);
         dialogCertificadosLayout.setHorizontalGroup(
             dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(131, 131, 131)
+                .addComponent(jLabel10)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(dialogCertificadosLayout.createSequentialGroup()
                 .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                        .addComponent(buttonInsertSalvar1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(143, 143, 143)
+                        .addComponent(buttonGerar))
                     .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                        .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel10))
-                        .addGap(26, 26, 26)
-                        .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fieldInsertIdUsuario1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                            .addComponent(fieldInsertIdEvento1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fieldInsertNomeUsuario1)
-                            .addComponent(fieldInsertNomeEvento1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-                        .addContainerGap(41, Short.MAX_VALUE))))
+                        .addGap(70, 70, 70)
+                        .addComponent(fieldCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         dialogCertificadosLayout.setVerticalGroup(
             dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(fieldInsertIdUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldInsertNomeUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fieldCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(fieldInsertIdEvento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldInsertNomeEvento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
-                .addComponent(buttonInsertSalvar1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(buttonGerar)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -367,6 +361,8 @@ public class TelaLogin extends javax.swing.JFrame {
     private void buttonCertificadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCertificadosActionPerformed
         dialogCertificados.setLocationRelativeTo(null);
         dialogCertificados.setVisible(true);
+        
+        
     }//GEN-LAST:event_buttonCertificadosActionPerformed
 
     private void buttonInsertSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertSalvarActionPerformed
@@ -408,21 +404,61 @@ public class TelaLogin extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_buttonInsertSalvarActionPerformed
 
-    private void buttonInsertSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertSalvar1ActionPerformed
+    private void buttonGerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGerarActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                /*registroEventoService.insert(entity);
+                
+            String codigo = fieldCodigoValidacao.getText();
+            
+            StringBuilder sql = new StringBuilder();
+            
+            sql.append(" SELECT p.nome AS nome_pessoa, e.nome_evento AS nome_evento")
+               .append(" FROM   pessoa p, registro_evento re")
+               .append(" WHERE re.codigo_validacao = '" + codigo + "'");
+            
+            RegistroEventoTemp resultados = new RegistroEventoTemp();
+                try {
+                    ResultSet resultado = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql.toString());
+                    
+                    while (resultado.next()) {
+                RegistroEventoTemp p = new RegistroEventoTemp();
 
-                fieldInsertIdUsuario.setText("");
-                fieldInsertNomeUsuario.setText("");
-                fieldInsertIdEvento.setText("");
-                fieldInsertNomeEvento.setText("");
-
-                dialogCertificados.dispose();
-                load();*/
+                p.setNomeUsuario(resultado.getString("nome_pessoa"));
+                p.setNomeEvento(resultado.getString("nome_evento"));
+                
+                resultados = p;
+            }
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                String text = "Certificamos que "+resultados.getNomeUsuario()+" participou do evento "+resultados.getNomeEvento()+". Codigo de validacao: "+codigo;
+                Paragraph para = new Paragraph (text);
+                String dest = "C:/itextExamples/"+codigo+".pdf"; 
+                try {
+                    PdfWriter writer = new PdfWriter(dest);
+                     // Creating a PdfDocument  
+                    PdfDocument pdfDoc = new PdfDocument(writer);
+                    // Adding an empty page 
+                    pdfDoc.addNewPage(); 
+                    // Creating a Document   
+                    Document document = new Document(pdfDoc); 
+                    document.add(para);
+                    document.close();              
+                    JOptionPane.showMessageDialog(rootPane, "PDF gerado em "+dest);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            
+                
             }
         });
-    }//GEN-LAST:event_buttonInsertSalvar1ActionPerformed
+    }//GEN-LAST:event_buttonGerarActionPerformed
+
+    private void fieldCodigoValidacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCodigoValidacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldCodigoValidacaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,18 +505,15 @@ public class TelaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
     private javax.swing.JButton buttonCertificados;
+    private javax.swing.JButton buttonGerar;
     private javax.swing.JButton buttonInsertSalvar;
-    private javax.swing.JButton buttonInsertSalvar1;
     private javax.swing.JButton buttonLogin;
     private javax.swing.JDialog dialogCadastrar;
     private javax.swing.JDialog dialogCertificados;
+    private javax.swing.JTextField fieldCodigoValidacao;
     private javax.swing.JTextField fieldCpfUsuario;
     private javax.swing.JTextField fieldDataNascimentoUsuario;
     private javax.swing.JTextField fieldEmailUsuario;
-    private javax.swing.JTextField fieldInsertIdEvento1;
-    private javax.swing.JTextField fieldInsertIdUsuario1;
-    private javax.swing.JTextField fieldInsertNomeEvento1;
-    private javax.swing.JTextField fieldInsertNomeUsuario1;
     private javax.swing.JTextField fieldLogin;
     private javax.swing.JTextField fieldNomeUsuario;
     private javax.swing.JPasswordField fieldSenha;
@@ -489,7 +522,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel labelLogin;

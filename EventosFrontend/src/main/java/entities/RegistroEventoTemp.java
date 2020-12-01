@@ -14,6 +14,7 @@ public class RegistroEventoTemp implements Serializable {
     private String nomeUsuario;
     private String cpfUsuario;
     private String emailUsuario;
+    private String nomeEvento;
 
     public RegistroEventoTemp(){}
     
@@ -43,6 +44,9 @@ public class RegistroEventoTemp implements Serializable {
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
+    
+
+
 
     public Integer getIdEvento() {
         return idEvento;
@@ -75,6 +79,10 @@ public class RegistroEventoTemp implements Serializable {
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
     }
+    
+        public void setNomeEvento(String nomeEvento) {
+        this.nomeEvento = nomeEvento;
+    }
 
     public String getCpfUsuario() {
         return cpfUsuario;
@@ -86,6 +94,10 @@ public class RegistroEventoTemp implements Serializable {
 
     public String getEmailUsuario() {
         return emailUsuario;
+    }
+    
+        public String getNomeEvento() {
+        return nomeEvento;
     }
 
     public void setEmailUsuario(String emailUsuario) {
