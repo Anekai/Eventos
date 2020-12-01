@@ -90,6 +90,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemUsuariosActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemSincronizar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sincronizar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemSincronizarActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -161,23 +169,24 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="labelVendaMessage" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="buttonRegistrarPresenca" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="labelPresencaInfo" pref="277" max="32767" attributes="0"/>
+                          <Component id="labelPresencaInfo" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="fieldIdEventoPresenca" pref="80" max="32767" attributes="0"/>
-                              <Component id="fieldIdUsuarioPresenca" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="fieldNomeEventoPresenca" max="32767" attributes="0"/>
-                              <Component id="fieldNomeUsuarioPresenca" pref="220" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="comboEventoPresenca" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="fieldIdUsuarioPresenca" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="fieldNomeUsuarioPresenca" min="-2" pref="220" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -191,8 +200,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="fieldIdEventoPresenca" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="fieldNomeEventoPresenca" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboEventoPresenca" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -202,7 +210,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="labelVendaMessage" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="173" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="buttonRegistrarPresenca" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="labelPresencaInfo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -226,10 +234,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRegistrarPresencaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="fieldIdEventoPresenca">
-        </Component>
-        <Component class="javax.swing.JTextField" name="fieldNomeEventoPresenca">
-        </Component>
         <Component class="javax.swing.JLabel" name="labelVendaMessage">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -246,11 +250,24 @@
         <Component class="javax.swing.JTextField" name="fieldIdUsuarioPresenca">
         </Component>
         <Component class="javax.swing.JTextField" name="fieldNomeUsuarioPresenca">
+          <Properties>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelPresencaInfo">
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="comboEventoPresenca">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -281,7 +298,11 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="labelInscricaoInfo" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="comboEventoInscricao" max="32767" attributes="0"/>
+                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -291,15 +312,9 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="fieldIdEventoInscricao" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="fieldIdUsuarioInscricao" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="fieldIdUsuarioInscricao" min="-2" pref="80" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="fieldNomeEventoInscricao" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="fieldNomeUsuarioInscricao" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="fieldNomeUsuarioInscricao" min="-2" pref="220" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="fieldEmailUsuario" alignment="0" max="32767" attributes="0"/>
                                       <Component id="fieldCpfUsuario" alignment="0" max="32767" attributes="0"/>
@@ -320,8 +335,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="fieldIdEventoInscricao" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="fieldNomeEventoInscricao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboEventoInscricao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -345,7 +359,7 @@
                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="fieldEmailUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="134" max="32767" attributes="0"/>
+                  <EmptySpace pref="132" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="buttonInscricaoRapida" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="labelInscricaoInfo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -392,10 +406,6 @@
             <Property name="text" type="java.lang.String" value="Evento:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="fieldIdEventoInscricao">
-        </Component>
-        <Component class="javax.swing.JTextField" name="fieldNomeEventoInscricao">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="text" type="java.lang.String" value="Usu&#xe1;rio:"/>
@@ -415,6 +425,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="comboEventoInscricao">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

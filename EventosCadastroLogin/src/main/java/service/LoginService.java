@@ -28,9 +28,7 @@ public class LoginService {
     @Path("/loginUsuario/{email}/{senha}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Pessoa loginUsuario(@PathParam("email")String email, @PathParam("senha")String senha) {
-        Pessoa p = dao.findUsuario(email, senha);
-        
-        return p;
+        return dao.findUsuario(email, senha);
     }
     
 }

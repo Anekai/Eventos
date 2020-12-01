@@ -1,4 +1,8 @@
+types\SimNaoType.class
 entidade\Evento.class
+framework\CalendarDeserializer.class
+framework\CalendarSerializer.class
+types\TipoEventoType.class
 apoio\ConexaoBD.class
 service\EventoService.class
 dao\EventoDAO.class

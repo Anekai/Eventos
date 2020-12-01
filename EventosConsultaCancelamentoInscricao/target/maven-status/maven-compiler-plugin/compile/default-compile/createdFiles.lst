@@ -1,4 +1,12 @@
+types\SimNaoType.class
+dao\ConsultaInscricaoDAO.class
+entidade\RegistroEvento.class
+service\CancelamentoInscricaoService.class
+entidade\Pessoa.class
 entidade\Evento.class
+framework\CalendarDeserializer.class
+framework\CalendarSerializer.class
+types\TipoEventoType.class
 apoio\ConexaoBD.class
-service\EventoService.class
-dao\EventoDAO.class
+dao\CancelamentoInscricaoDAO.class
+service\ConsultaInscricaoService.class

@@ -428,11 +428,7 @@ public class TelaEvento extends javax.swing.JDialog {
                 entity.setTipoEvento(Arrays.asList(TipoEventoType.values()).get(comboInsertTipoEvento.getSelectedIndex()));
                 
                 try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    Calendar c = Calendar.getInstance();
-                    c.setTime(sdf.parse(formatedFieldInsertDataEvento.getText()));
-                    
-                    entity.setDataEvento(sdf.parse(formatedFieldInsertDataEvento.getText()));
+                    entity.setDataEvento(new SimpleDateFormat("dd/MM/yyyy").parse(formatedFieldInsertDataEvento.getText()));
                 } catch (ParseException ex) {
                     Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -1,4 +1,12 @@
+types\SimNaoType.class
+dao\InscricaoCompletaDAO.class
+entidade\RegistroEvento.class
+entidade\Pessoa.class
 entidade\Evento.class
+framework\CalendarDeserializer.class
+framework\CalendarSerializer.class
+types\TipoEventoType.class
 apoio\ConexaoBD.class
-service\EventoService.class
-dao\EventoDAO.class
+service\InscricaoRapidaService.class
+dao\InscricaoRapidaDAO.class
+service\InscricaoCompletaService.class

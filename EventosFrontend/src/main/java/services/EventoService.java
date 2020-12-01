@@ -55,7 +55,7 @@ public class EventoService {
     }
 
     public List<Evento> find() {
-        return null; //dao.find(new Evento());
+        return find(new Evento());
     }
     
     public List<Evento> find(Evento entity) {

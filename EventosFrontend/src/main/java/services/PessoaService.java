@@ -52,11 +52,30 @@ public class PessoaService {
     }
     
     public Pessoa findById(Integer id) {
-        return null; //dao.findById(id);
+        Client client = ClientBuilder.newClient();
+
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosRegistroPresenca");
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/registroPresenca/buscarUsuario/" + id);
+        Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
+        Response response = invocationBuilder.get();
+        
+        String r = response.readEntity(String.class);
+        
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeHierarchyAdapter(Date.class, new CalendarDeserializer());
+        Gson g = gsonBuilder.create();
+        
+        System.out.println(r);
+        Pessoa p = g.fromJson(r, Pessoa.class);
+        System.out.println(p);
+        
+        return p;
     }
 
     public List<Pessoa> find() {
-        return null; //dao.find(new Pessoa());
+        return find(new Pessoa());
     }
     
     public List<Pessoa> find(Pessoa entity) {

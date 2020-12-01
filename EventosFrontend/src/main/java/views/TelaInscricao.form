@@ -30,13 +30,12 @@
                           </Group>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="fieldInsertIdUsuario" pref="60" max="32767" attributes="0"/>
-                              <Component id="fieldInsertIdEvento" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="fieldInsertNomeUsuario" max="32767" attributes="0"/>
-                              <Component id="fieldInsertNomeEvento" pref="180" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="fieldInsertIdUsuario" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="fieldInsertNomeUsuario" min="-2" pref="180" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="comboInsertEvento" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="41" max="32767" attributes="0"/>
                       </Group>
@@ -56,10 +55,9 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="fieldInsertIdEvento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="fieldInsertNomeEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboInsertEvento" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Component id="buttonInsertSalvar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -91,15 +89,21 @@
             <Property name="text" type="java.lang.String" value="Evento:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="fieldInsertIdEvento">
-        </Component>
         <Component class="javax.swing.JTextField" name="fieldInsertNomeUsuario">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="fieldInsertNomeEvento">
+        <Component class="javax.swing.JComboBox" name="comboInsertEvento">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -110,7 +114,7 @@
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[300, 300]"/>
+          <Dimension value="[440, 300]"/>
         </Property>
       </Properties>
 
@@ -146,7 +150,7 @@
                           <Component id="buttonGerarCertificado" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="128" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="122" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -170,7 +174,7 @@
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="fieldUpdatePresenca" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="53" max="32767" attributes="0"/>
+                  <EmptySpace pref="126" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="buttonGerarCertificado" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonCancelarInscricao" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -271,6 +275,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="buttonPesquisar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -286,20 +291,15 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="fieldSearchIdEvento" min="-2" pref="60" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fieldSearchNomeEvento" min="-2" pref="300" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
                               <Component id="fieldSearchIdUsuario" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fieldSearchNomeUsuario" max="32767" attributes="0"/>
+                              <Component id="fieldSearchNomeUsuario" min="-2" pref="300" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="comboSearchEvento" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jScrollPane1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="57" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -315,10 +315,9 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="fieldSearchIdEvento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="fieldSearchNomeEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboSearchEvento" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonNovo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -387,8 +386,9 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="fieldSearchIdUsuario">
-    </Component>
-    <Component class="javax.swing.JTextField" name="fieldSearchIdEvento">
+      <Properties>
+        <Property name="focusable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonPesquisar">
       <Properties>
@@ -407,8 +407,19 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="fieldSearchNomeUsuario">
+      <Properties>
+        <Property name="focusable" type="boolean" value="false"/>
+      </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="fieldSearchNomeEvento">
+    <Component class="javax.swing.JComboBox" name="comboSearchEvento">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

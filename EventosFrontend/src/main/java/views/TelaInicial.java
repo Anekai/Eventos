@@ -1,10 +1,13 @@
 
 package views;
 
+import configuration.ParamConfig;
+import entities.Evento;
 import entities.Pessoa;
 import entities.RegistroEvento;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JFrame;
 import services.EventoService;
 import services.PessoaService;
@@ -14,6 +17,8 @@ public class TelaInicial extends javax.swing.JFrame {
     
     private RegistroEvento entityPresenca;
     private RegistroEvento entityInscricao;
+    
+    private List<Evento> eventos;
     
     private final RegistroEventoService registroEventoService;
     private final PessoaService pessoaService;
@@ -31,24 +36,15 @@ public class TelaInicial extends javax.swing.JFrame {
         entityPresenca = new RegistroEvento();
         entityInscricao = new RegistroEvento();
         
-        fieldIdEventoPresenca.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if ( !fieldIdEventoPresenca.getText().equals("") ) {
-                    entityPresenca.setEvento(eventoService.findById(Integer.valueOf(fieldIdEventoPresenca.getText())));
-                } else {
-                    entityPresenca.setEvento(null);
-                }
-                
-                if ( entityPresenca.getEvento()!= null ) {
-                    fieldNomeEventoPresenca.setText(entityPresenca.getEvento().getNomeEvento());
-                    fieldIdUsuarioPresenca.requestFocus();
-                } else {
-                    fieldNomeEventoPresenca.setText("");
-                    fieldIdEventoPresenca.requestFocus();
-                }
-            }
-        });
+        comboEventoPresenca.removeAllItems();
+        comboEventoInscricao.removeAllItems();
+        
+        eventos = new ParamConfig().getEventos();
+        
+        for ( Evento evento : eventos ) {
+            comboEventoPresenca.addItem(evento.getNomeEvento());
+            comboEventoInscricao.addItem(evento.getNomeEvento());
+        }
         
         fieldIdUsuarioPresenca.addActionListener(new ActionListener() {
             @Override
@@ -60,30 +56,11 @@ public class TelaInicial extends javax.swing.JFrame {
                 }
                 
                 if ( entityPresenca.getUsuario() != null ) {
-                    fieldNomeUsuario.setText(entityPresenca.getUsuario().getNome());
+                    fieldNomeUsuarioPresenca.setText(entityPresenca.getUsuario().getNome());
                     buttonRegistrarPresenca.requestFocus();
                 } else {
-                    fieldNomeUsuario.setText("");
+                    fieldNomeUsuarioPresenca.setText("");
                     fieldIdUsuarioPresenca.requestFocus();
-                }
-            }
-        });
-        
-        fieldIdEventoInscricao.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if ( !fieldIdEventoInscricao.getText().equals("") ) {
-                    entityInscricao.setEvento(eventoService.findById(Integer.valueOf(fieldIdEventoInscricao.getText())));
-                } else {
-                    entityInscricao.setEvento(null);
-                }
-                
-                if ( entityInscricao.getEvento()!= null ) {
-                    fieldNomeEventoInscricao.setText(entityInscricao.getEvento().getNomeEvento());
-                    fieldIdUsuarioInscricao.requestFocus();
-                } else {
-                    fieldNomeEventoInscricao.setText("");
-                    fieldIdEventoInscricao.requestFocus();
                 }
             }
         });
@@ -139,13 +116,12 @@ public class TelaInicial extends javax.swing.JFrame {
         panelRegistroPresenca = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         buttonRegistrarPresenca = new javax.swing.JButton();
-        fieldIdEventoPresenca = new javax.swing.JTextField();
-        fieldNomeEventoPresenca = new javax.swing.JTextField();
         labelVendaMessage = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         fieldIdUsuarioPresenca = new javax.swing.JTextField();
         fieldNomeUsuarioPresenca = new javax.swing.JTextField();
         labelPresencaInfo = new javax.swing.JLabel();
+        comboEventoPresenca = new javax.swing.JComboBox<>();
         panelInscricaoRapida = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         buttonInscricaoRapida = new javax.swing.JButton();
@@ -153,8 +129,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        fieldIdEventoInscricao = new javax.swing.JTextField();
-        fieldNomeEventoInscricao = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         fieldIdUsuarioInscricao = new javax.swing.JTextField();
         fieldNomeUsuarioInscricao = new javax.swing.JTextField();
@@ -162,11 +136,13 @@ public class TelaInicial extends javax.swing.JFrame {
         fieldCpfUsuario = new javax.swing.JTextField();
         fieldEmailUsuario = new javax.swing.JTextField();
         labelInscricaoInfo = new javax.swing.JLabel();
+        comboEventoInscricao = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         menuItemEventos = new javax.swing.JMenuItem();
         menuItemInscricoes = new javax.swing.JMenuItem();
         menuItemUsuarios = new javax.swing.JMenuItem();
+        menuItemSincronizar = new javax.swing.JMenuItem();
 
         jLabel5.setText("Produto:");
 
@@ -223,6 +199,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel3.setText("Usuário:");
 
+        fieldNomeUsuarioPresenca.setFocusable(false);
+
         labelPresencaInfo.setText(" ");
 
         javax.swing.GroupLayout panelRegistroPresencaLayout = new javax.swing.GroupLayout(panelRegistroPresenca);
@@ -233,21 +211,21 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelRegistroPresencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelVendaMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
                     .addGroup(panelRegistroPresencaLayout.createSequentialGroup()
                         .addComponent(buttonRegistrarPresenca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelPresencaInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                        .addComponent(labelPresencaInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelRegistroPresencaLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(panelRegistroPresencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
                         .addGap(18, 18, 18)
-                        .addGroup(panelRegistroPresencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fieldIdEventoPresenca, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                            .addComponent(fieldIdUsuarioPresenca))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelRegistroPresencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fieldNomeEventoPresenca)
-                            .addComponent(fieldNomeUsuarioPresenca, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))))
+                        .addGroup(panelRegistroPresencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboEventoPresenca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelRegistroPresencaLayout.createSequentialGroup()
+                                .addComponent(fieldIdUsuarioPresenca, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fieldNomeUsuarioPresenca, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         panelRegistroPresencaLayout.setVerticalGroup(
@@ -256,8 +234,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelRegistroPresencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(fieldIdEventoPresenca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldNomeEventoPresenca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboEventoPresenca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelRegistroPresencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -265,7 +242,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(fieldNomeUsuarioPresenca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addComponent(labelVendaMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                 .addGroup(panelRegistroPresencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonRegistrarPresenca)
                     .addComponent(labelPresencaInfo))
@@ -313,7 +290,10 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addComponent(buttonInscricaoRapida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(labelInscricaoInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel2)
+                            .addGroup(panelInscricaoRapidaLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(20, 20, 20)
+                                .addComponent(comboEventoInscricao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(panelInscricaoRapidaLayout.createSequentialGroup()
                                 .addGroup(panelInscricaoRapidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -322,13 +302,9 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(panelInscricaoRapidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panelInscricaoRapidaLayout.createSequentialGroup()
-                                        .addGroup(panelInscricaoRapidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(fieldIdEventoInscricao)
-                                            .addComponent(fieldIdUsuarioInscricao, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(fieldIdUsuarioInscricao, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panelInscricaoRapidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(fieldNomeEventoInscricao)
-                                            .addComponent(fieldNomeUsuarioInscricao, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(fieldNomeUsuarioInscricao, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(fieldEmailUsuario)
                                     .addComponent(fieldCpfUsuario)
                                     .addComponent(fieldNomeUsuario))))
@@ -341,8 +317,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelInscricaoRapidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(fieldIdEventoInscricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldNomeEventoInscricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboEventoInscricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelInscricaoRapidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -361,7 +336,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(labelEncomendaMessage)
                     .addComponent(jLabel13)
                     .addComponent(fieldEmailUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addGroup(panelInscricaoRapidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonInscricaoRapida)
                     .addComponent(labelInscricaoInfo))
@@ -393,6 +368,14 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         menuCadastro.add(menuItemUsuarios);
+
+        menuItemSincronizar.setText("Sincronizar");
+        menuItemSincronizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSincronizarActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuItemSincronizar);
 
         jMenuBar1.add(menuCadastro);
 
@@ -447,15 +430,25 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemUsuariosActionPerformed
 
     private void buttonRegistrarPresencaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarPresencaActionPerformed
+        entityPresenca.setEvento(eventos.get(comboEventoPresenca.getSelectedIndex()));
+        
         if ( registroEventoService.registrarPresenca(entityPresenca) ) {
             labelPresencaInfo.setText("Presença confirmada!");
             
-            fieldIdEventoPresenca.setText("");
-            fieldNomeEventoPresenca.setText("");
             fieldIdUsuarioPresenca.setText("");
             fieldNomeUsuarioPresenca.setText("");
             
             entityPresenca = new RegistroEvento();
+            
+            eventos = eventoService.find();
+            
+            comboEventoPresenca.removeAllItems();
+            comboEventoInscricao.removeAllItems();
+        
+            for ( Evento evento : eventos ) {
+                comboEventoPresenca.addItem(evento.getNomeEvento());
+                comboEventoInscricao.addItem(evento.getNomeEvento());
+            }
         } else {
             labelPresencaInfo.setText("Erro ao confirmar presença!");
         }
@@ -469,8 +462,6 @@ public class TelaInicial extends javax.swing.JFrame {
         if ( registroEventoService.inscricaoRapida(entityInscricao) ) {
             labelPresencaInfo.setText("Inscrição confirmada!");
             
-            fieldIdEventoInscricao.setText("");
-            fieldNomeEventoInscricao.setText("");
             fieldIdUsuarioInscricao.setText("");
             fieldNomeUsuarioInscricao.setText("");
             
@@ -484,9 +475,13 @@ public class TelaInicial extends javax.swing.JFrame {
             
             entityInscricao = new RegistroEvento();
         } else {
-            labelPresencaInfo.setText("Erro ao confirmar inscrição!");
+            labelPresencaInfo.setText("Erro ao confirmar inscrição rápida!");
         }
     }//GEN-LAST:event_buttonInscricaoRapidaActionPerformed
+
+    private void menuItemSincronizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSincronizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemSincronizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -545,15 +540,13 @@ public class TelaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonInscricaoRapida;
     private javax.swing.JButton buttonRegistrarPresenca;
+    private javax.swing.JComboBox<String> comboEventoInscricao;
+    private javax.swing.JComboBox<String> comboEventoPresenca;
     private javax.swing.JDialog dialogProduto;
     private javax.swing.JTextField fieldCpfUsuario;
     private javax.swing.JTextField fieldEmailUsuario;
-    private javax.swing.JTextField fieldIdEventoInscricao;
-    private javax.swing.JTextField fieldIdEventoPresenca;
     private javax.swing.JTextField fieldIdUsuarioInscricao;
     private javax.swing.JTextField fieldIdUsuarioPresenca;
-    private javax.swing.JTextField fieldNomeEventoInscricao;
-    private javax.swing.JTextField fieldNomeEventoPresenca;
     private javax.swing.JTextField fieldNomeUsuario;
     private javax.swing.JTextField fieldNomeUsuarioInscricao;
     private javax.swing.JTextField fieldNomeUsuarioPresenca;
@@ -576,6 +569,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuItemEventos;
     private javax.swing.JMenuItem menuItemInscricoes;
+    private javax.swing.JMenuItem menuItemSincronizar;
     private javax.swing.JMenuItem menuItemUsuarios;
     private javax.swing.JPanel panelInscricaoRapida;
     private javax.swing.JPanel panelRegistroPresenca;

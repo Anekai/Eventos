@@ -21,6 +21,7 @@ public class TelaInscricao extends javax.swing.JDialog {
 
     private RegistroEvento entitySearch;
     private RegistroEvento entity;
+    private List<Evento> eventos;
     
     private final RegistroEventoService registroEventoService;
     private final PessoaService pessoaService;
@@ -38,7 +39,24 @@ public class TelaInscricao extends javax.swing.JDialog {
         
         entitySearch = new RegistroEvento();
         
-        fieldSearchIdUsuario.addActionListener(new ActionListener() {
+        loadEventos();
+        
+        fieldSearchIdUsuario.setText(new ParamConfig().getUsuarioLogado().getId().toString());
+        fieldSearchNomeUsuario.setText(new ParamConfig().getUsuarioLogado().getNome());
+        
+        comboSearchEvento.removeAllItems();
+        
+        comboSearchEvento.addItem("");
+        
+        if ( eventos == null || eventos.isEmpty() ) {
+            eventos = new ParamConfig().getEventos();
+        }
+        
+        for ( Evento evento : eventos ) {
+            comboSearchEvento.addItem(evento.getNomeEvento());
+        }
+        
+        /*fieldSearchIdUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ( !fieldSearchIdUsuario.getText().equals("") ) {
@@ -112,13 +130,23 @@ public class TelaInscricao extends javax.swing.JDialog {
                     fieldInsertIdEvento.requestFocus();
                 }
             }
-        });
+        });*/
     }
     
     private void load() {
+        entitySearch.setUsuario(new ParamConfig().getUsuarioLogado());
+        
+        if (comboSearchEvento.getSelectedIndex() != 0) {
+            entitySearch.setEvento(eventos.get(comboSearchEvento.getSelectedIndex()-1));
+        }
+        
         populateTable(registroEventoService.find(entitySearch));
         
         entitySearch = new RegistroEvento();
+    }
+    
+    private void loadEventos() {
+        eventos = eventoService.find();
     }
     
     private void populateTable(List<RegistroEvento> list) {
@@ -148,9 +176,8 @@ public class TelaInscricao extends javax.swing.JDialog {
         fieldInsertIdUsuario = new javax.swing.JTextField();
         buttonInsertSalvar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        fieldInsertIdEvento = new javax.swing.JTextField();
         fieldInsertNomeUsuario = new javax.swing.JTextField();
-        fieldInsertNomeEvento = new javax.swing.JTextField();
+        comboInsertEvento = new javax.swing.JComboBox<>();
         dialogUpdate = new javax.swing.JDialog();
         jLabel4 = new javax.swing.JLabel();
         fieldUpdateIdUsuario = new javax.swing.JTextField();
@@ -168,11 +195,10 @@ public class TelaInscricao extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableInscricao = new javax.swing.JTable();
         fieldSearchIdUsuario = new javax.swing.JTextField();
-        fieldSearchIdEvento = new javax.swing.JTextField();
         buttonPesquisar = new javax.swing.JButton();
         buttonNovo = new javax.swing.JButton();
         fieldSearchNomeUsuario = new javax.swing.JTextField();
-        fieldSearchNomeEvento = new javax.swing.JTextField();
+        comboSearchEvento = new javax.swing.JComboBox<>();
 
         dialogInsert.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         dialogInsert.setTitle("Inscrever-se");
@@ -213,12 +239,11 @@ public class TelaInscricao extends javax.swing.JDialog {
                             .addComponent(jLabel9))
                         .addGap(26, 26, 26)
                         .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fieldInsertIdUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                            .addComponent(fieldInsertIdEvento))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fieldInsertNomeUsuario)
-                            .addComponent(fieldInsertNomeEvento, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                            .addGroup(dialogInsertLayout.createSequentialGroup()
+                                .addComponent(fieldInsertIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fieldInsertNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboInsertEvento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(41, Short.MAX_VALUE))))
         );
         dialogInsertLayout.setVerticalGroup(
@@ -232,9 +257,8 @@ public class TelaInscricao extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(dialogInsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(fieldInsertIdEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldInsertNomeEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                    .addComponent(comboInsertEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
                 .addComponent(buttonInsertSalvar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -243,7 +267,7 @@ public class TelaInscricao extends javax.swing.JDialog {
         dialogUpdate.setTitle("Atualizar Inscrição");
         dialogUpdate.setModal(true);
         dialogUpdate.setResizable(false);
-        dialogUpdate.setSize(new java.awt.Dimension(300, 300));
+        dialogUpdate.setSize(new java.awt.Dimension(440, 300));
 
         jLabel4.setText("Usuário:");
 
@@ -306,7 +330,7 @@ public class TelaInscricao extends javax.swing.JDialog {
                         .addComponent(buttonCancelarInscricao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonGerarCertificado)))
-                .addGap(0, 128, Short.MAX_VALUE))
+                .addGap(0, 122, Short.MAX_VALUE))
         );
         dialogUpdateLayout.setVerticalGroup(
             dialogUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,7 +349,7 @@ public class TelaInscricao extends javax.swing.JDialog {
                 .addGroup(dialogUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(fieldUpdatePresenca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addGroup(dialogUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonGerarCertificado)
                     .addComponent(buttonCancelarInscricao))
@@ -376,6 +400,8 @@ public class TelaInscricao extends javax.swing.JDialog {
             tableInscricao.getColumnModel().getColumn(1).setResizable(false);
         }
 
+        fieldSearchIdUsuario.setFocusable(false);
+
         buttonPesquisar.setText("Pesquisar");
         buttonPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -390,6 +416,8 @@ public class TelaInscricao extends javax.swing.JDialog {
             }
         });
 
+        fieldSearchNomeUsuario.setFocusable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -397,6 +425,7 @@ public class TelaInscricao extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -410,15 +439,11 @@ public class TelaInscricao extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(fieldSearchIdEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldSearchNomeEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(fieldSearchIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldSearchNomeUsuario))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(fieldSearchNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboSearchEvento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,9 +456,8 @@ public class TelaInscricao extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(fieldSearchIdEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldSearchNomeEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
+                    .addComponent(comboSearchEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonPesquisar)
                     .addComponent(buttonNovo)
@@ -452,14 +476,16 @@ public class TelaInscricao extends javax.swing.JDialog {
                 entity = new RegistroEvento();
                 //entity.setId((Integer) tableProduto.getValueAt(tableProduto.getSelectedRow(), 0));
                 entity.setUsuario(new Pessoa((String) tableInscricao.getValueAt(tableInscricao.getSelectedRow(), 0)));
-                entity.setEvento(new Evento((String) tableInscricao.getValueAt(tableInscricao.getSelectedRow(), 0)));
+                entity.setEvento(new Evento((String) tableInscricao.getValueAt(tableInscricao.getSelectedRow(), 1)));
+                
+                entity = registroEventoService.find(entity).get(0);
 
                 fieldUpdateIdUsuario.setText(String.valueOf(entity.getUsuario().getId()));
                 fieldUpdateNomeUsuario.setText(entity.getUsuario().getNome());
                 fieldUpdateIdEvento.setText(String.valueOf(entity.getEvento().getId()));
                 fieldUpdateNomeEvento.setText(entity.getEvento().getNomeEvento());
                 fieldUpdatePresenca.setText(entity.getPresenca().getValue());
-
+                
                 dialogUpdate.setLocationRelativeTo(null);
                 dialogUpdate.setVisible(true);
             }
@@ -475,10 +501,14 @@ public class TelaInscricao extends javax.swing.JDialog {
             public void run() {
                 entity = new RegistroEvento();
 
-                fieldInsertIdUsuario.setText("");
-                fieldInsertNomeUsuario.setText("");
-                fieldInsertIdEvento.setText("");
-                fieldInsertNomeEvento.setText("");
+                fieldInsertIdUsuario.setText(new ParamConfig().getUsuarioLogado().getId().toString());
+                fieldInsertNomeUsuario.setText(new ParamConfig().getUsuarioLogado().getNome());
+                
+                comboInsertEvento.removeAllItems();
+        
+                for ( Evento evento : eventos ) {
+                    comboInsertEvento.addItem(evento.getNomeEvento());
+                }
 
                 dialogInsert.setLocationRelativeTo(null);
                 dialogInsert.setVisible(true);
@@ -489,12 +519,15 @@ public class TelaInscricao extends javax.swing.JDialog {
     private void buttonInsertSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertSalvarActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                registroEventoService.insert(entity);
+                entity.setUsuario(new ParamConfig().getUsuarioLogado());
+                entity.setEvento(eventos.get(comboInsertEvento.getSelectedIndex()));
+                entity.setPresenca(SimNaoType.NAO);
+                entity.setCodigoValidacao(null);
+                
+                registroEventoService.inscricaoCompleta(entity);
                 
                 fieldInsertIdUsuario.setText("");
                 fieldInsertNomeUsuario.setText("");
-                fieldInsertIdEvento.setText("");
-                fieldInsertNomeEvento.setText("");
                 
                 dialogInsert.dispose();
                 load();
@@ -548,37 +581,6 @@ public class TelaInscricao extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(TelaInscricao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -602,15 +604,13 @@ public class TelaInscricao extends javax.swing.JDialog {
     private javax.swing.JButton buttonInsertSalvar;
     private javax.swing.JButton buttonNovo;
     private javax.swing.JButton buttonPesquisar;
+    private javax.swing.JComboBox<String> comboInsertEvento;
+    private javax.swing.JComboBox<String> comboSearchEvento;
     private javax.swing.JDialog dialogInsert;
     private javax.swing.JDialog dialogUpdate;
-    private javax.swing.JTextField fieldInsertIdEvento;
     private javax.swing.JTextField fieldInsertIdUsuario;
-    private javax.swing.JTextField fieldInsertNomeEvento;
     private javax.swing.JTextField fieldInsertNomeUsuario;
-    private javax.swing.JTextField fieldSearchIdEvento;
     private javax.swing.JTextField fieldSearchIdUsuario;
-    private javax.swing.JTextField fieldSearchNomeEvento;
     private javax.swing.JTextField fieldSearchNomeUsuario;
     private javax.swing.JTextField fieldUpdateIdEvento;
     private javax.swing.JTextField fieldUpdateIdUsuario;

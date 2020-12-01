@@ -4,15 +4,28 @@ package views;
 import configuration.ParamConfig;
 import configuration.SpringConfig;
 import entities.Pessoa;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import services.EventoService;
 import services.PessoaService;
-import services.RegistroEventoTempService;
+import services.RegistroEventoService;
 
 public class TelaLogin extends javax.swing.JFrame {
 
+    private Pessoa usuarioCadastro;
+    
+    private PessoaService pessoaService;
+    private RegistroEventoService registroEventoService;
+    
     public TelaLogin() {
         initComponents();
-        SpringConfig.context.getBean(RegistroEventoTempService.class).find();
+        pessoaService = new PessoaService();
+        registroEventoService = new RegistroEventoService();
+        
         this.setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -25,13 +38,17 @@ public class TelaLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         dialogCadastrar = new javax.swing.JDialog();
-        jLabel6 = new javax.swing.JLabel();
-        fieldInsertIdUsuario = new javax.swing.JTextField();
         buttonInsertSalvar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        fieldInsertIdEvento = new javax.swing.JTextField();
-        fieldInsertNomeUsuario = new javax.swing.JTextField();
-        fieldInsertNomeEvento = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        fieldDataNascimentoUsuario = new javax.swing.JTextField();
+        fieldCpfUsuario = new javax.swing.JTextField();
+        fieldNomeUsuario = new javax.swing.JTextField();
+        fieldEmailUsuario = new javax.swing.JTextField();
+        fieldSenhaUsuario = new javax.swing.JPasswordField();
         dialogCertificados = new javax.swing.JDialog();
         jLabel7 = new javax.swing.JLabel();
         fieldInsertIdUsuario1 = new javax.swing.JTextField();
@@ -54,24 +71,24 @@ public class TelaLogin extends javax.swing.JFrame {
         dialogCadastrar.setTitle("Cadastrar Usuário");
         dialogCadastrar.setModal(true);
         dialogCadastrar.setResizable(false);
-        dialogCadastrar.setSize(new java.awt.Dimension(360, 200));
+        dialogCadastrar.setSize(new java.awt.Dimension(400, 350));
 
-        jLabel6.setText("Usuário:");
-
-        fieldInsertIdUsuario.setEditable(false);
-        fieldInsertIdUsuario.setFocusable(false);
-
-        buttonInsertSalvar.setText("Salvar");
+        buttonInsertSalvar.setText("Cadastrar");
         buttonInsertSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonInsertSalvarActionPerformed(evt);
             }
         });
 
-        jLabel9.setText("Evento:");
+        jLabel8.setText("Nome:");
 
-        fieldInsertNomeUsuario.setEditable(false);
-        fieldInsertNomeUsuario.setFocusable(false);
+        jLabel9.setText("CPF:");
+
+        jLabel13.setText("Email:");
+
+        jLabel1.setText("Data Nascimento:");
+
+        jLabel2.setText("Senha:");
 
         javax.swing.GroupLayout dialogCadastrarLayout = new javax.swing.GroupLayout(dialogCadastrar.getContentPane());
         dialogCadastrar.getContentPane().setLayout(dialogCadastrarLayout);
@@ -80,39 +97,49 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(dialogCadastrarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(dialogCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogCadastrarLayout.createSequentialGroup()
-                        .addComponent(buttonInsertSalvar)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(buttonInsertSalvar)
                     .addGroup(dialogCadastrarLayout.createSequentialGroup()
                         .addGroup(dialogCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel9))
-                        .addGap(26, 26, 26)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(dialogCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fieldInsertIdUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                            .addComponent(fieldInsertIdEvento))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dialogCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fieldInsertNomeUsuario)
-                            .addComponent(fieldInsertNomeEvento, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-                        .addContainerGap(41, Short.MAX_VALUE))))
+                            .addComponent(fieldSenhaUsuario)
+                            .addComponent(fieldEmailUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                            .addComponent(fieldCpfUsuario)
+                            .addComponent(fieldNomeUsuario)
+                            .addComponent(fieldDataNascimentoUsuario))))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         dialogCadastrarLayout.setVerticalGroup(
             dialogCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogCadastrarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(dialogCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(fieldInsertIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldInsertNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addComponent(fieldNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(dialogCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(fieldInsertIdEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldInsertNomeEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                    .addComponent(fieldCpfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dialogCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(fieldDataNascimentoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dialogCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(fieldEmailUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dialogCadastrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(fieldSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(buttonInsertSalvar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         dialogCertificados.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -280,7 +307,6 @@ public class TelaLogin extends javax.swing.JFrame {
             labelLoginErro.setVisible(true);
         } else {
             //PessoaService usuarioService = SpringConfig.context.getBean(PessoaService.class);
-            PessoaService usuarioService = new PessoaService();
             
             /*            
             String senha = new String(fieldSenha.getPassword());
@@ -310,13 +336,13 @@ public class TelaLogin extends javax.swing.JFrame {
             
 //            usuarioService.update(funcionarioLogado);
             
-            Pessoa usuarioLogado = usuarioService.loginUsuario(fieldLogin.getText(), new String(fieldSenha.getPassword()));
+            Pessoa usuarioLogado = pessoaService.loginUsuario(fieldLogin.getText(), new String(fieldSenha.getPassword()));
 
             if ( usuarioLogado != null ){
                 labelLoginErro.setText("");
                 labelLoginErro.setVisible(false);
                 
-                ParamConfig config = new ParamConfig(usuarioLogado);
+                ParamConfig config = new ParamConfig(usuarioLogado, new EventoService().find(), new PessoaService().find(), new RegistroEventoService().find());
 
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
@@ -346,15 +372,38 @@ public class TelaLogin extends javax.swing.JFrame {
     private void buttonInsertSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertSalvarActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                /*registroEventoService.insert(entity);
+                usuarioCadastro = new Pessoa();
+                
+                usuarioCadastro.setNome(fieldNomeUsuario.getText());
+                usuarioCadastro.setCpf(fieldCpfUsuario.getText());
+                usuarioCadastro.setEmail(fieldEmailUsuario.getText());
+                usuarioCadastro.setSenha(new String(fieldSenhaUsuario.getPassword()));
+                
+                try {
+                    usuarioCadastro.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(fieldDataNascimentoUsuario.getText()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                pessoaService.insert(usuarioCadastro);
+                
+                usuarioCadastro = pessoaService.loginUsuario(usuarioCadastro.getEmail(), usuarioCadastro.getSenha());
+                
+                ParamConfig config = new ParamConfig(usuarioCadastro, new EventoService().find(), new PessoaService().find(), new RegistroEventoService().find());
 
-                fieldInsertIdUsuario.setText("");
-                fieldInsertNomeUsuario.setText("");
-                fieldInsertIdEvento.setText("");
-                fieldInsertNomeEvento.setText("");
+                fieldNomeUsuario.setText("");
+                fieldCpfUsuario.setText("");
+                fieldDataNascimentoUsuario.setText("");
+                fieldEmailUsuario.setText("");
+                fieldSenhaUsuario.setText("");
 
                 dialogCadastrar.dispose();
-                load();*/
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        TelaLogin.this.setVisible(false);
+                        new TelaInicial().setVisible(true);
+                    }
+                });
             }
         });
     }//GEN-LAST:event_buttonInsertSalvarActionPerformed
@@ -425,19 +474,23 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JButton buttonLogin;
     private javax.swing.JDialog dialogCadastrar;
     private javax.swing.JDialog dialogCertificados;
-    private javax.swing.JTextField fieldInsertIdEvento;
+    private javax.swing.JTextField fieldCpfUsuario;
+    private javax.swing.JTextField fieldDataNascimentoUsuario;
+    private javax.swing.JTextField fieldEmailUsuario;
     private javax.swing.JTextField fieldInsertIdEvento1;
-    private javax.swing.JTextField fieldInsertIdUsuario;
     private javax.swing.JTextField fieldInsertIdUsuario1;
-    private javax.swing.JTextField fieldInsertNomeEvento;
     private javax.swing.JTextField fieldInsertNomeEvento1;
-    private javax.swing.JTextField fieldInsertNomeUsuario;
     private javax.swing.JTextField fieldInsertNomeUsuario1;
     private javax.swing.JTextField fieldLogin;
+    private javax.swing.JTextField fieldNomeUsuario;
     private javax.swing.JPasswordField fieldSenha;
+    private javax.swing.JPasswordField fieldSenhaUsuario;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel labelLogin;
     private javax.swing.JLabel labelLoginErro;

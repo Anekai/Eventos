@@ -2,59 +2,56 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import types.SimNaoType;
 
-@Entity
-@Table(name = "registro_evento_temp")
-@SequenceGenerator(allocationSize = 1, name = "seq_registro_evento_temp", sequenceName = "seq_registro_evento_temp")
 public class RegistroEventoTemp implements Serializable {
     
     private Integer id;
-    private Integer usuario;
-    private Integer evento;
+    private Integer idUsuario;
+    private Integer idEvento;
     private SimNaoType presenca;
     private String codigoValidacao;
+    private String nomeUsuario;
+    private String cpfUsuario;
+    private String emailUsuario;
+
+    public RegistroEventoTemp(){}
     
-    @Id
-    @GeneratedValue(generator = "seq_registro_evento_temp", strategy = GenerationType.IDENTITY)
-    @Column(name = "id_registro_evento_temp")
+    public RegistroEventoTemp(Integer id, Integer idUsuario, Integer idEvento, SimNaoType presenca, String codigoValidacao, String nomeUsuario, String cpfUsuario, String emailUsuario) {
+        this.id = id;
+        this.idUsuario = idUsuario;
+        this.idEvento = idEvento;
+        this.presenca = presenca;
+        this.codigoValidacao = codigoValidacao;
+        this.nomeUsuario = nomeUsuario;
+        this.cpfUsuario = cpfUsuario;
+        this.emailUsuario = emailUsuario;
+    }
+
     public Integer getId() {
         return id;
     }
-    
+
     public void setId(Integer id) {
         this.id = id;
     }
 
-    @Column(name = "id_usuario")
-    public Integer getUsuario() {
-        return usuario;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Integer usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    @Column(name = "id_evento")
-    public Integer getEvento() {
-        return evento;
+    public Integer getIdEvento() {
+        return idEvento;
     }
 
-    public void setEvento(Integer evento) {
-        this.evento = evento;
+    public void setIdEvento(Integer idEvento) {
+        this.idEvento = idEvento;
     }
 
-    @Column(name = "presenca")
-    @Enumerated(EnumType.STRING)
     public SimNaoType getPresenca() {
         return presenca;
     }
@@ -63,7 +60,6 @@ public class RegistroEventoTemp implements Serializable {
         this.presenca = presenca;
     }
 
-    @Column(name = "codigo_validacao")
     public String getCodigoValidacao() {
         return codigoValidacao;
     }
@@ -71,5 +67,29 @@ public class RegistroEventoTemp implements Serializable {
     public void setCodigoValidacao(String codigoValidacao) {
         this.codigoValidacao = codigoValidacao;
     }
-    
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
+    public String getCpfUsuario() {
+        return cpfUsuario;
+    }
+
+    public void setCpfUsuario(String cpfUsuario) {
+        this.cpfUsuario = cpfUsuario;
+    }
+
+    public String getEmailUsuario() {
+        return emailUsuario;
+    }
+
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
+    }
+
 }

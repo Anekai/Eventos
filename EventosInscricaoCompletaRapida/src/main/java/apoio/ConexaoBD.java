@@ -9,22 +9,10 @@ public class ConexaoBD {
 
     public ConexaoBD() {
         try {
-            String dbdriver = "com.mysql.jdbc.Driver";
-            String dburl = "jdbc:mysql://localhost:3306/webservice?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-            String dbuser = "root";
-            String dbsenha = "";
-
             // Carrega Driver do Banco de Dados
-            Class.forName(dbdriver);
+            Class.forName("org.postgresql.Driver");
 
-            if (dbuser.length() != 0) // conexão COM usuário e senha
-            {
-                conexao = DriverManager.getConnection(dburl, dbuser, dbsenha);
-            } else // conexão SEM usuário e senha
-            {
-                conexao = DriverManager.getConnection(dburl);
-            }
-
+            conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/eventos", "postgres", "postgres");
         } catch (Exception e) {
             System.err.println(e);
         }

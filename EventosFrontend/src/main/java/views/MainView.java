@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import entities.Evento;
 import entities.Pessoa;
+import entities.RegistroEvento;
 import framework.CalendarDeserializer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,7 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import types.SimNaoType;
 import types.TipoEventoType;
 
 public class MainView {
@@ -37,10 +39,13 @@ public class MainView {
         
         MainView r = new MainView();
         
-        //r.getTest();
         //r.postTest();
-        r.getEventoTest();
+        //r.getTest();
         //r.postEventoTest();
+        //r.getEventoTest();
+        //r.postRegistroEventoTest();
+        //r.getRegistroEventoTest();
+        r.deleteRegistroEventoTeste();
     }
     
     public void getTest() {
@@ -150,6 +155,59 @@ public class MainView {
         System.out.println("-- Response --");
         System.out.println(response.getStatus());
         System.out.println(response.readEntity(String.class));
+    }
+    
+    public void getRegistroEventoTest() {
+        Client client = ClientBuilder.newClient();
+
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosConsultaCancelamentoInscricao");
+        
+        RegistroEvento inscricao = new RegistroEvento(new Pessoa("1 - Alexandre Klabunde"), null, null, null);
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/consultaInscricao/consultarInscricoes");
+        Invocation.Builder invocationBuilder = resourceWebTarget.request();
+        Response response = invocationBuilder.post(Entity.entity(inscricao, MediaType.APPLICATION_JSON_TYPE));
+        
+        System.out.println("-- Response --");
+        System.out.println(response.getStatus());
+        String r = response.readEntity(String.class);
+        System.out.println(r);
+        
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Date.class, new CalendarDeserializer());
+        Gson g = gsonBuilder.create();
+        
+        List<RegistroEvento> inscricoes = g.fromJson(r, new TypeToken<ArrayList<RegistroEvento>>(){}.getType());
+        System.out.println(inscricoes);
+    }
+    
+    public void postRegistroEventoTest() {
+        Client client = ClientBuilder.newClient();
+
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosInscricaoCompletaRapida");
+        
+        RegistroEvento inscricao = new RegistroEvento(new Pessoa("1 - Alexandre Klabunde"), new Evento("1 - Indústria 4.0"), SimNaoType.NAO, null);
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/inscricaoCompleta/inscricaoCompleta");
+        Invocation.Builder invocationBuilder = resourceWebTarget.request();
+        Response response = invocationBuilder.post(Entity.entity(inscricao, MediaType.APPLICATION_JSON_TYPE));
+        
+        System.out.println("Response: " + response.readEntity(String.class));
+    }
+    
+    public void deleteRegistroEventoTeste() {
+        Client client = ClientBuilder.newClient();
+
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosConsultaCancelamentoInscricao");
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/cancelamentoInscricao/cancelarInscricao/2/1");
+        Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
+        Response response = invocationBuilder.delete();
+        
+        System.out.println("Response: " + response.readEntity(String.class));
     }
     
 }
