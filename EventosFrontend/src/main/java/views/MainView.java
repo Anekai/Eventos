@@ -51,8 +51,8 @@ public class MainView {
     public void getTest() {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         WebTarget resourceWebTarget = webTarget.path("rest/login/loginUsuario/alexandre.klabunde@universo.univates.br/teste123");
         Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
@@ -110,8 +110,8 @@ public class MainView {
     public void getEventoTest() {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         Evento evento = new Evento(null, "Industria 4.0", null, null);
         
@@ -136,8 +136,8 @@ public class MainView {
     public void postEventoTest() {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         Date data = null;
         try {
@@ -160,8 +160,8 @@ public class MainView {
     public void getRegistroEventoTest() {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosConsultaCancelamentoInscricao");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosConsultaCancelamentoInscricao");
         
         RegistroEvento inscricao = new RegistroEvento(new Pessoa("1 - Alexandre Klabunde"), null, null, null);
         
@@ -185,8 +185,8 @@ public class MainView {
     public void postRegistroEventoTest() {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosInscricaoCompletaRapida");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosInscricaoCompletaRapida");
         
         RegistroEvento inscricao = new RegistroEvento(new Pessoa("1 - Alexandre Klabunde"), new Evento("1 - Indústria 4.0"), SimNaoType.NAO, null);
         
@@ -200,8 +200,8 @@ public class MainView {
     public void deleteRegistroEventoTeste() {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosConsultaCancelamentoInscricao");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosConsultaCancelamentoInscricao");
         
         WebTarget resourceWebTarget = webTarget.path("rest/cancelamentoInscricao/cancelarInscricao/2/1");
         Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
