@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import entities.Evento;
+import entities.Pessoa;
 import entities.RegistroEvento;
 import framework.CalendarDeserializer;
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ public class RegistroEventoService {
     public void inscricaoCompleta(RegistroEvento entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosInscricaoCompletaRapida-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosInscricaoCompletaRapida");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosInscricaoCompletaRapida-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosInscricaoCompletaRapida");
         
         WebTarget resourceWebTarget = webTarget.path("rest/inscricaoCompleta/inscricaoCompleta");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
@@ -40,8 +41,8 @@ public class RegistroEventoService {
     public void delete(RegistroEvento entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosConsultaCancelamentoInscricao-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosConsultaCancelamentoInscricao");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosConsultaCancelamentoInscricao-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosConsultaCancelamentoInscricao");
         
         WebTarget resourceWebTarget = webTarget.path("rest/cancelamentoInscricao/cancelarInscricao/" + entity.getEvento().getId() + "/" + entity.getUsuario().getId());
         Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
@@ -61,8 +62,8 @@ public class RegistroEventoService {
     public List<RegistroEvento> find(RegistroEvento entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosConsultaCancelamentoInscricao-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosConsultaCancelamentoInscricao");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosConsultaCancelamentoInscricao-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosConsultaCancelamentoInscricao");
         
         WebTarget resourceWebTarget = webTarget.path("rest/consultaInscricao/consultarInscricoes");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
@@ -86,8 +87,8 @@ public class RegistroEventoService {
     public boolean registrarPresenca(RegistroEvento entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosRegistroPresenca-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosRegistroPresenca");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosRegistroPresenca-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosRegistroPresenca");
         
         WebTarget resourceWebTarget = webTarget.path("rest/registroPresenca/confirmarPresenca");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
@@ -101,8 +102,8 @@ public class RegistroEventoService {
     public boolean inscricaoRapida(RegistroEvento entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosInscricaoCompletaRapida-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosInscricaoCompletaRapida");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosInscricaoCompletaRapida-1.0");
+       // WebTarget webTarget = client.target("http://localhost:8080/EventosInscricaoCompletaRapida");
         
         WebTarget resourceWebTarget = webTarget.path("rest/inscricaoRapida/inscricaoRapida");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
@@ -116,8 +117,8 @@ public class RegistroEventoService {
     public RegistroEvento findByCodigo(String codigo) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosEmissaoValidacaoCertificado-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosEmissaoValidacaoCertificado");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosEmissaoValidacaoCertificado-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosEmissaoValidacaoCertificado");
         
         WebTarget resourceWebTarget = webTarget.path("rest/evento/codigoValidacao/" + codigo);
         Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);

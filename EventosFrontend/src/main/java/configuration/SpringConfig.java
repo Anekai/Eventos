@@ -38,9 +38,9 @@ public class SpringConfig {
             Map<String, String> settings;
             settings = new HashMap<String, String>();
             settings.put(Environment.DRIVER, "org.postgresql.Driver");
-            settings.put(Environment.URL, "jdbc:postgresql://localhost:5432/eventos");
+            settings.put(Environment.URL, "jdbc:postgresql://177.44.248.90:5432/eventos");
             settings.put(Environment.USER, "postgres");
-            settings.put(Environment.PASS, "postgres");
+            settings.put(Environment.PASS, "eventos");
             settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
             settings.put(Environment.AUTO_CLOSE_SESSION, "true");
             settings.put(Environment.AUTOCOMMIT, "true");
@@ -91,9 +91,9 @@ public class SpringConfig {
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("org.postgresql.Driver");
-        ds.setUrl("jdbc:postgresql://localhost:5432/eventos");
+        ds.setUrl("jdbc:postgresql://177.44.248.90:5432/eventos");
         ds.setUsername("postgres");
-        ds.setPassword("postgres");
+        ds.setPassword("eventos");
         return ds;
     }
 

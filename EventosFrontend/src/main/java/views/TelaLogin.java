@@ -1,7 +1,7 @@
 
 package views;
 
-
+import configuration.SendAttachment;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -60,6 +60,7 @@ public class TelaLogin extends javax.swing.JFrame {
         buttonGerar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         fieldCodigoValidacao = new javax.swing.JTextField();
+        buttonEnviarEmail = new javax.swing.JButton();
         panelLogin = new javax.swing.JPanel();
         labelLogin = new javax.swing.JLabel();
         fieldLogin = new javax.swing.JTextField();
@@ -160,6 +161,13 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel10.setText("Código de validação");
 
+        buttonEnviarEmail.setText("Enviar por e-mail");
+        buttonEnviarEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEnviarEmailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout dialogCertificadosLayout = new javax.swing.GroupLayout(dialogCertificados.getContentPane());
         dialogCertificados.getContentPane().setLayout(dialogCertificadosLayout);
         dialogCertificadosLayout.setHorizontalGroup(
@@ -174,8 +182,10 @@ public class TelaLogin extends javax.swing.JFrame {
                         .addGap(70, 70, 70)
                         .addComponent(fieldCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(buttonGerar)))
+                        .addGap(92, 92, 92)
+                        .addComponent(buttonGerar)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonEnviarEmail)))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         dialogCertificadosLayout.setVerticalGroup(
@@ -186,7 +196,9 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonGerar)
+                .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonGerar)
+                    .addComponent(buttonEnviarEmail))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -388,6 +400,45 @@ public class TelaLogin extends javax.swing.JFrame {
                         // Creating a Document   
                         Document document = new Document(pdfDoc); 
                         document.add(para);
+                        document.close();
+                        
+                        SendAttachment sa = new SendAttachment();
+                        sa.sendMail(re.getUsuario().getEmail(), dest);
+                        JOptionPane.showMessageDialog(rootPane, "PDF gerado em "+dest+" e enviado para o e-mail " + re.getUsuario().getEmail());
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+    }//GEN-LAST:event_buttonGerarActionPerformed
+
+    private void buttonEnviarEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEnviarEmailActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                
+                String codigo = fieldCodigoValidacao.getText();
+                RegistroEvento re = registroEventoService.findByCodigo(codigo);
+                
+                
+                if ( re != null ) {
+                    String text = "Certificamos que "+re.getUsuario().getNome()+" participou do evento "+re.getEvento().getNomeEvento()+". Codigo de validacao: "+codigo;
+                    Paragraph para = new Paragraph (text);
+                    String dest = "C:/itextExamples/"+codigo+".pdf"; 
+                    try {
+                        File directory = new File("C:/itextExamples");
+                        if (!directory.exists()){
+                            directory.mkdir();
+                        }
+                        
+                        PdfWriter writer = new PdfWriter(dest);
+                        // Creating a PdfDocument  
+                        PdfDocument pdfDoc = new PdfDocument(writer);
+                        // Adding an empty page 
+                        pdfDoc.addNewPage(); 
+                        // Creating a Document   
+                        Document document = new Document(pdfDoc); 
+                        document.add(para);
                         document.close();              
                         JOptionPane.showMessageDialog(rootPane, "PDF gerado em "+dest);
                     } catch (FileNotFoundException ex) {
@@ -396,7 +447,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 }
             }
         });
-    }//GEN-LAST:event_buttonGerarActionPerformed
+    }//GEN-LAST:event_buttonEnviarEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,6 +494,7 @@ public class TelaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
     private javax.swing.JButton buttonCertificados;
+    private javax.swing.JButton buttonEnviarEmail;
     private javax.swing.JButton buttonGerar;
     private javax.swing.JButton buttonInsertSalvar;
     private javax.swing.JButton buttonLogin;

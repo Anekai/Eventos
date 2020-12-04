@@ -1,4 +1,6 @@
 types\SimNaoType.class
+entidade\RegistroEvento.class
+entidade\Pessoa.class
 entidade\Evento.class
 framework\CalendarDeserializer.class
 framework\CalendarSerializer.class

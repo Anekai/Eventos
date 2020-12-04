@@ -22,8 +22,8 @@ public class PessoaService {
     public void insert(Pessoa entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         WebTarget resourceWebTarget = webTarget.path("rest/cadastro/cadastrarUsuario");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
@@ -35,8 +35,8 @@ public class PessoaService {
     public void update(Pessoa entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         WebTarget resourceWebTarget = webTarget.path("rest/cadastro/atualizarUsuario");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
@@ -52,8 +52,8 @@ public class PessoaService {
     public Pessoa findById(Integer id) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosRegistroPresenca-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosRegistroPresenca");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosRegistroPresenca-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosRegistroPresenca");
         
         WebTarget resourceWebTarget = webTarget.path("rest/registroPresenca/buscarUsuario/" + id);
         Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
@@ -79,8 +79,8 @@ public class PessoaService {
     public List<Pessoa> find(Pessoa entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         WebTarget resourceWebTarget = webTarget.path("rest/cadastro/buscarUsuarios");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
@@ -104,8 +104,8 @@ public class PessoaService {
     public Pessoa loginUsuario( String login, String senha ) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         WebTarget resourceWebTarget = webTarget.path("rest/login/loginUsuario/" + login + "/" + senha);
         Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);

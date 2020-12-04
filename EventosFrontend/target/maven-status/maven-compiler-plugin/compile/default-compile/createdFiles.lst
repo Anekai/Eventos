@@ -10,7 +10,6 @@ services\RegistroEventoService$1.class
 views\TelaInscricao$10.class
 entities\Evento.class
 views\TelaLogin$6.class
-views\TelaLogin$7$1.class
 views\TelaUsuario$7.class
 views\TelaInscricao$9.class
 views\TelaLogin$2.class
@@ -28,10 +27,12 @@ views\TelaInicial$8.class
 services\RegistroEventoService.class
 views\TelaUsuario$6.class
 services\PessoaService$1.class
+views\TelaInicial$13.class
 views\TelaInscricao$1.class
 views\TelaLogin$5.class
 views\TelaInscricao$11.class
 views\TelaEvento.class
+views\TelaLogin$10.class
 views\TelaEvento$7.class
 services\EventoService$1.class
 views\TelaInicial$1.class
@@ -42,8 +43,10 @@ views\TelaLogin$8.class
 views\TelaInicial$10.class
 framework\CalendarDeserializer.class
 views\TelaInscricao$8.class
+views\TelaLogin$8$1.class
 views\TelaEvento$4.class
 views\TelaUsuario.class
+configuration\SendAttachment$1.class
 configuration\SpringConfig.class
 views\TelaLogin$4.class
 views\TelaInicial$7.class
@@ -53,6 +56,7 @@ views\TelaEvento$10.class
 views\TelaInscricao$13$1.class
 views\MainView.class
 views\MainView$1.class
+views\TelaLogin$11.class
 views\TelaUsuario$2.class
 views\TelaInscricao.class
 views\TelaLogin$1.class
@@ -79,6 +83,7 @@ views\TelaInscricao$3.class
 entities\RegistroEvento.class
 daos\RegistroEventoTempDAO.class
 services\EventoService.class
+configuration\SendAttachment.class
 views\TelaUsuario$4.class
 views\TelaEvento$9.class
 views\TelaInscricao$12.class

@@ -199,6 +199,12 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel3.setText("Usuário:");
 
+        fieldIdUsuarioPresenca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldIdUsuarioPresencaActionPerformed(evt);
+            }
+        });
+
         fieldNomeUsuarioPresenca.setFocusable(false);
 
         labelPresencaInfo.setText(" ");
@@ -484,6 +490,10 @@ public class TelaInicial extends javax.swing.JFrame {
     private void menuItemSincronizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSincronizarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemSincronizarActionPerformed
+
+    private void fieldIdUsuarioPresencaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldIdUsuarioPresencaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldIdUsuarioPresencaActionPerformed
 
     /**
      * @param args the command line arguments

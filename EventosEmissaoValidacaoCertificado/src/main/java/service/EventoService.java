@@ -33,6 +33,7 @@ public class EventoService {
         sql.append(" SELECT re.* ")
            .append(" ,      p.nome AS nome_pessoa ")
            .append(" ,      e.nome_evento ")
+           .append(" ,      p.email ")
            .append(" FROM   registro_evento re ")
            .append(" INNER JOIN pessoa p ON re.pessoa_id = p.id ")
            .append(" INNER JOIN evento e ON re.evento_id = e.id ")
@@ -66,5 +67,7 @@ public class EventoService {
         
         return registro;
     }
+    
+    
     
 }

@@ -23,8 +23,8 @@ public class EventoService {
     public void insert(Evento entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         WebTarget resourceWebTarget = webTarget.path("rest/cadastro/cadastrarEvento");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
@@ -36,8 +36,8 @@ public class EventoService {
     public void update(Evento entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         WebTarget resourceWebTarget = webTarget.path("rest/cadastro/atualizarEvento");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
@@ -61,8 +61,8 @@ public class EventoService {
     public List<Evento> find(Evento entity) {
         Client client = ClientBuilder.newClient();
 
-        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
-        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        //WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
         
         WebTarget resourceWebTarget = webTarget.path("rest/cadastro/buscarEventos");
         Invocation.Builder invocationBuilder = resourceWebTarget.request();
