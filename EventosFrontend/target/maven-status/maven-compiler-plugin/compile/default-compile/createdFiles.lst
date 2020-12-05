@@ -47,7 +47,6 @@ views\TelaLogin$8$1.class
 views\TelaEvento$4.class
 views\TelaUsuario.class
 configuration\SendAttachment$1.class
-configuration\SpringConfig.class
 views\TelaLogin$4.class
 views\TelaInicial$7.class
 views\TelaEvento$1.class

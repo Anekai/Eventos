@@ -6,7 +6,6 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import configuration.ParamConfig;
-import configuration.SpringConfig;
 import entities.Evento;
 import entities.Pessoa;
 import entities.RegistroEvento;

@@ -46,12 +46,15 @@ public class TelaUsuario extends javax.swing.JDialog {
         Object rowData[] = new Object[3];
         model.setRowCount(0);
         
-        for ( Pessoa pessoa : list ) {
-            rowData[0] = pessoa.getId();
-            rowData[1] = pessoa.getNome();
-            rowData[2] = pessoa.getEmail();
+        if(list != null)
+        {
+            for ( Pessoa pessoa : list ) {
+                rowData[0] = pessoa.getId();
+                rowData[1] = pessoa.getNome();
+                rowData[2] = pessoa.getEmail();
 
-            model.addRow(rowData);
+                model.addRow(rowData);
+            }
         }
     }
 

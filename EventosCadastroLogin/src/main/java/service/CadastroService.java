@@ -40,6 +40,19 @@ public class CadastroService {
         }
     }
     
+//    @POST
+//    @Path("/cadastrarUsuario")
+//    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+//    public void cadastrarUsuario(Pessoa p) {
+//        System.out.println("---------------- Inserindo protestos "+p.toString());
+//        try {
+//            System.out.println("teste");
+//        } catch (Exception e) {
+//            System.out.println(e.toString());
+//        }
+//    }
+    
+    
     @PUT
     @Path("/atualizarUsuario")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

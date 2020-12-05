@@ -41,9 +41,12 @@ public class TelaInicial extends javax.swing.JFrame {
         
         eventos = new ParamConfig().getEventos();
         
-        for ( Evento evento : eventos ) {
-            comboEventoPresenca.addItem(evento.getNomeEvento());
-            comboEventoInscricao.addItem(evento.getNomeEvento());
+        if(eventos != null)
+        {
+            for ( Evento evento : eventos ) {
+                comboEventoPresenca.addItem(evento.getNomeEvento());
+                comboEventoInscricao.addItem(evento.getNomeEvento());
+            }
         }
         
         fieldIdUsuarioPresenca.addActionListener(new ActionListener() {
