@@ -61,13 +61,16 @@ public class TelaEvento extends javax.swing.JDialog {
         Object rowData[] = new Object[4];
         model.setRowCount(0);
         
-        for ( Evento evento : list ) {
-            rowData[0] = evento.getId();
-            rowData[1] = evento.getNomeEvento();
-            rowData[2] = evento.getTipoEvento().getValue();
-            rowData[3] = new SimpleDateFormat("dd/MM/yyyy").format(evento.getDataEvento());
+        if( list != null)
+        {
+            for ( Evento evento : list ) {
+                rowData[0] = evento.getId();
+                rowData[1] = evento.getNomeEvento();
+                rowData[2] = evento.getTipoEvento().getValue();
+                rowData[3] = new SimpleDateFormat("dd/MM/yyyy").format(evento.getDataEvento());
 
-            model.addRow(rowData);
+                model.addRow(rowData);
+            }
         }
     }
 
