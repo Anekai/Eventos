@@ -307,7 +307,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 labelLoginErro.setText("");
                 labelLoginErro.setVisible(false);
                 
-                ParamConfig config = new ParamConfig(usuarioLogado, new EventoService().find(), new PessoaService().find(), new RegistroEventoService().find());
+                ParamConfig config = new ParamConfig(usuarioLogado);
 
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
@@ -356,7 +356,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 
                 usuarioCadastro = pessoaService.loginUsuario(usuarioCadastro.getEmail(), usuarioCadastro.getSenha());
                 
-                ParamConfig config = new ParamConfig(usuarioCadastro, new EventoService().find(), new PessoaService().find(), new RegistroEventoService().find());
+                ParamConfig config = new ParamConfig(usuarioCadastro);
 
                 fieldNomeUsuario.setText("");
                 fieldCpfUsuario.setText("");

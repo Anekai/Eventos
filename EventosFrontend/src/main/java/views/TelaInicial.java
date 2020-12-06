@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import services.EventoService;
 import services.PessoaService;
 import services.RegistroEventoService;
+import services.RegistroEventoTempService;
 
 public class TelaInicial extends javax.swing.JFrame {
     
@@ -19,19 +20,26 @@ public class TelaInicial extends javax.swing.JFrame {
     private RegistroEvento entityInscricao;
     
     private List<Evento> eventos;
+    private boolean simularOffline;
+    private ParamConfig paramConfig;
     
-    private final RegistroEventoService registroEventoService;
     private final PessoaService pessoaService;
     private final EventoService eventoService;
+    private final RegistroEventoService registroEventoService;
+    private final RegistroEventoTempService registroEventoTempService;
 
     public TelaInicial() {
         initComponents();
 
         this.setLocationRelativeTo(null);
         
-        registroEventoService = new RegistroEventoService();
         pessoaService = new PessoaService();
         eventoService = new EventoService();
+        registroEventoService = new RegistroEventoService();
+        registroEventoTempService = new RegistroEventoTempService();
+        
+        simularOffline = false;
+        paramConfig  = new ParamConfig();
         
         entityPresenca = new RegistroEvento();
         entityInscricao = new RegistroEvento();
@@ -39,10 +47,9 @@ public class TelaInicial extends javax.swing.JFrame {
         comboEventoPresenca.removeAllItems();
         comboEventoInscricao.removeAllItems();
         
-        eventos = new ParamConfig().getEventos();
+        eventos = eventoService.find();
         
-        if(eventos != null)
-        {
+        if ( eventos != null ) {
             for ( Evento evento : eventos ) {
                 comboEventoPresenca.addItem(evento.getNomeEvento());
                 comboEventoInscricao.addItem(evento.getNomeEvento());
@@ -53,7 +60,15 @@ public class TelaInicial extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ( !fieldIdUsuarioPresenca.getText().equals("") ) {
-                    entityPresenca.setUsuario(pessoaService.findById(Integer.valueOf(fieldIdUsuarioPresenca.getText())));
+                    if ( simularOffline ) {
+                        for ( Pessoa usuario : paramConfig.getUsuarios() ) {
+                            if ( usuario.getId().equals(Integer.valueOf(fieldIdUsuarioPresenca.getText())) ) {
+                                entityPresenca.setUsuario(usuario);
+                            }
+                        }
+                    } else {
+                        entityPresenca.setUsuario(pessoaService.findById(Integer.valueOf(fieldIdUsuarioPresenca.getText())));
+                    }
                 } else {
                     entityPresenca.setUsuario(null);
                 }
@@ -72,7 +87,15 @@ public class TelaInicial extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ( !fieldIdUsuarioInscricao.getText().equals("") ) {
-                    entityInscricao.setUsuario(pessoaService.findById(Integer.valueOf(fieldIdUsuarioInscricao.getText())));
+                    if ( simularOffline ) {
+                        for ( Pessoa usuario : paramConfig.getUsuarios() ) {
+                            if ( usuario.getId().equals(Integer.valueOf(fieldIdUsuarioInscricao.getText())) ) {
+                                entityInscricao.setUsuario(usuario);
+                            }
+                        }
+                    } else {
+                        entityInscricao.setUsuario(pessoaService.findById(Integer.valueOf(fieldIdUsuarioInscricao.getText())));
+                    }
                 } else {
                     entityInscricao.setUsuario(null);
                 }
@@ -201,12 +224,6 @@ public class TelaInicial extends javax.swing.JFrame {
         labelVendaMessage.setText("            ");
 
         jLabel3.setText("Usuário:");
-
-        fieldIdUsuarioPresenca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldIdUsuarioPresencaActionPerformed(evt);
-            }
-        });
 
         fieldNomeUsuarioPresenca.setFocusable(false);
 
@@ -441,7 +458,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void buttonRegistrarPresencaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarPresencaActionPerformed
         entityPresenca.setEvento(eventos.get(comboEventoPresenca.getSelectedIndex()));
         
-        if ( registroEventoService.registrarPresenca(entityPresenca) ) {
+        if ( registroEventoService.registrarPresenca(entityPresenca, simularOffline) ) {
             labelPresencaInfo.setText("Presença confirmada!");
             
             fieldIdUsuarioPresenca.setText("");
@@ -449,7 +466,11 @@ public class TelaInicial extends javax.swing.JFrame {
             
             entityPresenca = new RegistroEvento();
             
-            eventos = eventoService.find();
+            if ( simularOffline ) {
+                eventos = paramConfig.getEventos();
+            } else {
+                eventos = eventoService.find();
+            }
             
             comboEventoPresenca.removeAllItems();
             comboEventoInscricao.removeAllItems();
@@ -470,7 +491,7 @@ public class TelaInicial extends javax.swing.JFrame {
         
         entityInscricao.setEvento(eventos.get(comboEventoInscricao.getSelectedIndex()));
         
-        if ( registroEventoService.inscricaoRapida(entityInscricao) ) {
+        if ( registroEventoService.inscricaoRapida(entityInscricao, simularOffline) ) {
             labelInscricaoInfo.setText("Inscrição confirmada!");
             
             fieldIdUsuarioInscricao.setText("");
@@ -485,18 +506,44 @@ public class TelaInicial extends javax.swing.JFrame {
             fieldEmailUsuario.setEditable(true);
             
             entityInscricao = new RegistroEvento();
+            
+            if ( simularOffline ) {
+                eventos = paramConfig.getEventos();
+            } else {
+                eventos = eventoService.find();
+            }
+            
+            comboEventoPresenca.removeAllItems();
+            comboEventoInscricao.removeAllItems();
+        
+            for ( Evento evento : eventos ) {
+                comboEventoPresenca.addItem(evento.getNomeEvento());
+                comboEventoInscricao.addItem(evento.getNomeEvento());
+            }
         } else {
             labelInscricaoInfo.setText("Erro ao confirmar inscrição rápida!");
         }
     }//GEN-LAST:event_buttonInscricaoRapidaActionPerformed
 
     private void menuItemSincronizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSincronizarActionPerformed
-        // TODO add your handling code here:
+        registroEventoTempService.synchronize();
+        
+        paramConfig = new ParamConfig(eventoService.find(), pessoaService.find(), registroEventoService.find());
+        
+        if ( paramConfig.getEventos() != null && !paramConfig.getEventos().isEmpty() ) {
+            eventos = paramConfig.getEventos();
+            
+            comboEventoPresenca.removeAllItems();
+            comboEventoInscricao.removeAllItems();
+        
+            for ( Evento evento : eventos ) {
+                comboEventoPresenca.addItem(evento.getNomeEvento());
+                comboEventoInscricao.addItem(evento.getNomeEvento());
+            }
+        }
+        
+        simularOffline = !simularOffline;
     }//GEN-LAST:event_menuItemSincronizarActionPerformed
-
-    private void fieldIdUsuarioPresencaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldIdUsuarioPresencaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldIdUsuarioPresencaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,20 +570,6 @@ public class TelaInicial extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

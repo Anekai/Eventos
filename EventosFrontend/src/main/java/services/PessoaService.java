@@ -44,10 +44,6 @@ public class PessoaService {
         
         System.out.println("Response: " + response.readEntity(String.class));
     }
-
-    public void delete(Pessoa entity) {
-        //dao.delete(entity);
-    }
     
     public Pessoa findById(Integer id) {
         Client client = ClientBuilder.newClient();

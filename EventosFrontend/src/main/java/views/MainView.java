@@ -4,10 +4,13 @@ package views;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import configuration.ConexaoBD;
 import entities.Evento;
 import entities.Pessoa;
 import entities.RegistroEvento;
+import entities.RegistroEventoTemp;
 import framework.CalendarDeserializer;
+import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import services.RegistroEventoTempService;
 import types.SimNaoType;
 import types.TipoEventoType;
 
@@ -39,13 +43,16 @@ public class MainView {
         
         MainView r = new MainView();
         
-        r.postTest();
+        //r.postTest();
         //r.getTest();
         //r.postEventoTest();
         //r.getEventoTest();
         //r.postRegistroEventoTest();
         //r.getRegistroEventoTest();
         //r.deleteRegistroEventoTeste();
+        //r.synchronizeTest();
+        //r.registroEventoTempFindTest();
+        r.registroEventoTeste();
     }
     
     public void getTest() {
@@ -208,6 +215,66 @@ public class MainView {
         Response response = invocationBuilder.delete();
         
         System.out.println("Response: " + response.readEntity(String.class));
+    }
+    
+    private void synchronizeTest() {
+        Client client = ClientBuilder.newClient();
+        
+        List<RegistroEventoTemp> inscricoesTemp = new ArrayList<>();
+        
+        inscricoesTemp.add(new RegistroEventoTemp(1, 7, 1, SimNaoType.SIM, null, null, null));
+        inscricoesTemp.add(new RegistroEventoTemp(2, 7, 2, SimNaoType.SIM, null, null, null));
+
+        //WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosCadastroLogin-1.0");
+        WebTarget webTarget = client.target("http://localhost:8080/EventosCadastroLogin");
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/cadastro/synchronize");
+        Invocation.Builder invocationBuilder = resourceWebTarget.request();
+        Response response = invocationBuilder.post(Entity.entity(inscricoesTemp, MediaType.APPLICATION_JSON_TYPE));
+        
+        System.out.println("Response: " + response.readEntity(String.class));
+    }
+    
+    private void registroEventoTempFindTest() {
+        for ( RegistroEventoTemp temp : new RegistroEventoTempService().find() ) {
+            System.out.println("ID: " + temp.getId());
+            System.out.println("ID Usuario: " + temp.getIdUsuario());
+            System.out.println("ID Evento: " + temp.getIdEvento());
+            System.out.println("Presença: " + temp.getPresenca());
+            System.out.println("Nome Usuario: " + temp.getNomeUsuario());
+            System.out.println("CPF Usuario: " + temp.getCpfUsuario());
+            System.out.println("Email Usuario: " + temp.getEmailUsuario());
+        }
+    }
+    
+    private void registroEventoTeste() {
+        try {
+            StringBuilder sql = new StringBuilder();
+            
+            sql.append(" SELECT * ")
+               .append(" FROM   registro_evento_temp ")
+               .append(" ORDER BY id_registro_evento_temp ");
+            
+            ArrayList<RegistroEventoTemp> resultados = new ArrayList<>();
+            ResultSet resultado = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql.toString());
+            
+            while (resultado.next()) {
+                RegistroEventoTemp p = new RegistroEventoTemp();
+
+                p.setId(resultado.getInt("id_registro_evento_temp"));
+                System.out.println("--- TESTE: " + resultado.getString("id_usuario"));
+                p.setIdUsuario(resultado.getInt("id_usuario"));
+                p.setIdEvento(resultado.getInt("id_evento"));
+                p.setPresenca(resultado.getString("presenca") != null ? SimNaoType.valueOf(resultado.getString("presenca")) : null);
+                p.setNomeUsuario(resultado.getString("nome_usuario"));
+                p.setCpfUsuario(resultado.getString("cpf_usuario"));
+                p.setEmailUsuario(resultado.getString("email_usuario"));
+                
+                resultados.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar inscrições temporárias: " + e);
+        }
     }
     
 }

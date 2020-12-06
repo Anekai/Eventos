@@ -15,11 +15,14 @@ public class ParamConfig {
     
     public ParamConfig() {}
     
-    public ParamConfig(Pessoa usuario, List<Evento> eventos, List<Pessoa> usuarios, List<RegistroEvento> inscricoes) {
-        this.usuario = usuario;
-        this.eventos = eventos;
-        this.usuarios = usuarios;
-        this.inscricoes = inscricoes;
+    public ParamConfig(Pessoa usuarioParam) {
+        usuario = usuarioParam;
+    }
+    
+    public ParamConfig(List<Evento> eventosParam, List<Pessoa> usuariosParam, List<RegistroEvento> inscricoesParam) {
+        eventos = eventosParam;
+        usuarios = usuariosParam;
+        inscricoes = inscricoesParam;
     }
     
     public Pessoa getUsuarioLogado() {

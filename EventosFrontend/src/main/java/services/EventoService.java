@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import entities.Evento;
-import entities.Pessoa;
 import framework.CalendarDeserializer;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,14 +43,6 @@ public class EventoService {
         Response response = invocationBuilder.put(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));
         
         System.out.println("Response: " + response.readEntity(String.class));
-    }
-
-    public void delete(Evento entity) {
-        //dao.delete(entity);
-    }
-    
-    public Evento findById(Integer id) {
-        return null; //dao.findById(id);
     }
 
     public List<Evento> find() {

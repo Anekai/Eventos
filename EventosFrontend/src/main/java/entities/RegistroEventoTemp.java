@@ -10,20 +10,17 @@ public class RegistroEventoTemp implements Serializable {
     private Integer idUsuario;
     private Integer idEvento;
     private SimNaoType presenca;
-    private String codigoValidacao;
     private String nomeUsuario;
     private String cpfUsuario;
     private String emailUsuario;
-    private String nomeEvento;
 
     public RegistroEventoTemp(){}
     
-    public RegistroEventoTemp(Integer id, Integer idUsuario, Integer idEvento, SimNaoType presenca, String codigoValidacao, String nomeUsuario, String cpfUsuario, String emailUsuario) {
+    public RegistroEventoTemp(Integer id, Integer idUsuario, Integer idEvento, SimNaoType presenca, String nomeUsuario, String cpfUsuario, String emailUsuario) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idEvento = idEvento;
         this.presenca = presenca;
-        this.codigoValidacao = codigoValidacao;
         this.nomeUsuario = nomeUsuario;
         this.cpfUsuario = cpfUsuario;
         this.emailUsuario = emailUsuario;
@@ -45,9 +42,6 @@ public class RegistroEventoTemp implements Serializable {
         this.idUsuario = idUsuario;
     }
     
-
-
-
     public Integer getIdEvento() {
         return idEvento;
     }
@@ -64,24 +58,12 @@ public class RegistroEventoTemp implements Serializable {
         this.presenca = presenca;
     }
 
-    public String getCodigoValidacao() {
-        return codigoValidacao;
-    }
-
-    public void setCodigoValidacao(String codigoValidacao) {
-        this.codigoValidacao = codigoValidacao;
-    }
-
     public String getNomeUsuario() {
         return nomeUsuario;
     }
 
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
-    }
-    
-        public void setNomeEvento(String nomeEvento) {
-        this.nomeEvento = nomeEvento;
     }
 
     public String getCpfUsuario() {
@@ -94,10 +76,6 @@ public class RegistroEventoTemp implements Serializable {
 
     public String getEmailUsuario() {
         return emailUsuario;
-    }
-    
-        public String getNomeEvento() {
-        return nomeEvento;
     }
 
     public void setEmailUsuario(String emailUsuario) {

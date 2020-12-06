@@ -4,8 +4,6 @@ package services;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import entities.Evento;
-import entities.Pessoa;
 import entities.RegistroEvento;
 import framework.CalendarDeserializer;
 import java.util.ArrayList;
@@ -34,10 +32,6 @@ public class RegistroEventoService {
         System.out.println("Response: " + response.readEntity(String.class));
     }
 
-    public void update(RegistroEvento entity) {
-        //dao.update(entity);
-    }
-
     public void delete(RegistroEvento entity) {
         Client client = ClientBuilder.newClient();
 
@@ -49,10 +43,6 @@ public class RegistroEventoService {
         Response response = invocationBuilder.delete();
         
         System.out.println("Response: " + response.readEntity(String.class));
-    }
-    
-    public RegistroEvento findById(Integer id) {
-        return null; //dao.findById(id);
     }
 
     public List<RegistroEvento> find() {
@@ -84,34 +74,42 @@ public class RegistroEventoService {
         return inscricoes;
     }
     
-    public boolean registrarPresenca(RegistroEvento entity) {
-        Client client = ClientBuilder.newClient();
+    public boolean registrarPresenca(RegistroEvento entity, boolean simularOffline) {
+        if ( simularOffline ) {
+            return new RegistroEventoTempService().registrarPresencaTemp(entity);
+        } else {
+            Client client = ClientBuilder.newClient();
 
-        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosRegistroPresenca-1.0");
-        //WebTarget webTarget = client.target("http://localhost:8080/EventosRegistroPresenca");
+            WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosRegistroPresenca-1.0");
+            //WebTarget webTarget = client.target("http://localhost:8080/EventosRegistroPresenca");
         
-        WebTarget resourceWebTarget = webTarget.path("rest/registroPresenca/confirmarPresenca");
-        Invocation.Builder invocationBuilder = resourceWebTarget.request();
-        Response response = invocationBuilder.put(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));
+            WebTarget resourceWebTarget = webTarget.path("rest/registroPresenca/confirmarPresenca");
+            Invocation.Builder invocationBuilder = resourceWebTarget.request();
+            Response response = invocationBuilder.put(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));
         
-        System.out.println("Response: " + response.readEntity(String.class));
+            System.out.println("Response: " + response.readEntity(String.class));
         
-        return true;
+            return true;
+        }
     }
     
-    public boolean inscricaoRapida(RegistroEvento entity) {
-        Client client = ClientBuilder.newClient();
+    public boolean inscricaoRapida(RegistroEvento entity, boolean simularOffline) {
+        if ( simularOffline ) {
+            return new RegistroEventoTempService().inscricaoRapidaTemp(entity);
+        } else {
+            Client client = ClientBuilder.newClient();
 
-        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosInscricaoCompletaRapida-1.0");
-       // WebTarget webTarget = client.target("http://localhost:8080/EventosInscricaoCompletaRapida");
+            WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosInscricaoCompletaRapida-1.0");
+            //WebTarget webTarget = client.target("http://localhost:8080/EventosInscricaoCompletaRapida");
         
-        WebTarget resourceWebTarget = webTarget.path("rest/inscricaoRapida/inscricaoRapida");
-        Invocation.Builder invocationBuilder = resourceWebTarget.request();
-        Response response = invocationBuilder.post(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));
+            WebTarget resourceWebTarget = webTarget.path("rest/inscricaoRapida/inscricaoRapida");
+            Invocation.Builder invocationBuilder = resourceWebTarget.request();
+            Response response = invocationBuilder.post(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));
         
-        System.out.println("Response: " + response.readEntity(String.class));
+            System.out.println("Response: " + response.readEntity(String.class));
         
-        return true;
+            return true;
+        }
     }
     
     public RegistroEvento findByCodigo(String codigo) {
