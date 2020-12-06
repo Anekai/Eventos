@@ -23,8 +23,14 @@ public class SendAttachment{
    
   //1) get the session object     
   Properties properties = System.getProperties();  
-  properties.setProperty("mail.smtp.host", "mail.javatpoint.com");  
-  properties.put("mail.smtp.auth", "true");  
+  //properties.setProperty("mail.smtp.host", "mail.javatpoint.com");  
+  //properties.put("mail.smtp.auth", "true");  
+    properties.put("mail.smtp.host", "smtp.gmail.com");
+    properties.put("mail.smtp.socketFactory.port", "465");
+    properties.put("mail.smtp.socketFactory.class",
+    "javax.net.ssl.SSLSocketFactory");
+    properties.put("mail.smtp.auth", "true");
+    properties.put("mail.smtp.port", "465");
   
   Session session = Session.getDefaultInstance(properties,  
    new javax.mail.Authenticator() {  
@@ -36,11 +42,11 @@ public class SendAttachment{
     MimeMessage message = new MimeMessage(session);  
     message.setFrom(new InternetAddress(user));  
     message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));  
-    message.setSubject("Message Aleart");  
+    message.setSubject("Certificado");  
       
     //3) create MimeBodyPart object and set your message text     
     BodyPart messageBodyPart1 = new MimeBodyPart();  
-    messageBodyPart1.setText("This is message body");  
+    messageBodyPart1.setText("Envio de certificado");  
       
     //4) create new MimeBodyPart object and set DataHandler object to this object      
     MimeBodyPart messageBodyPart2 = new MimeBodyPart();  

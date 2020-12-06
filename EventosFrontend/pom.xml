@@ -262,6 +262,12 @@
          <version>7.0.2</version>     
       </dependency>  
       
+      <dependency>
+        <groupId>org.simplejavamail</groupId>
+        <artifactId>simple-java-mail</artifactId>
+        <version>6.4.4</version>
+      </dependency>
+      
       <dependency>         
          <groupId>com.itextpdf</groupId>         
          <artifactId>io</artifactId>         
@@ -308,7 +314,16 @@
          <groupId>com.itextpdf</groupId>         
          <artifactId>hyph</artifactId>         
          <version>7.0.2</version>    
-      </dependency> 
+      </dependency>
+      
+      <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
     </dependencies>
     
     <dependencyManagement>

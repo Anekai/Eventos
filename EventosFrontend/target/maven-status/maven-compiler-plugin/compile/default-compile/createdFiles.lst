@@ -27,7 +27,6 @@ views\TelaInicial$8.class
 services\RegistroEventoService.class
 views\TelaUsuario$6.class
 services\PessoaService$1.class
-views\TelaInicial$13.class
 views\TelaInscricao$1.class
 views\TelaLogin$5.class
 views\TelaInscricao$11.class
@@ -40,6 +39,7 @@ views\MainView$2.class
 entities\Pessoa.class
 views\TelaInicial$4.class
 views\TelaLogin$8.class
+configuration\sendEmail.class
 views\TelaInicial$10.class
 framework\CalendarDeserializer.class
 views\TelaInscricao$8.class

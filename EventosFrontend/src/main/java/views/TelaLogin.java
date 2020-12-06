@@ -152,7 +152,7 @@ public class TelaLogin extends javax.swing.JFrame {
         dialogCertificados.setResizable(false);
         dialogCertificados.setSize(new java.awt.Dimension(360, 200));
 
-        buttonGerar.setText("Gerar");
+        buttonGerar.setText("Enviar por e-mail");
         buttonGerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonGerarActionPerformed(evt);
@@ -161,7 +161,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel10.setText("Código de validação");
 
-        buttonEnviarEmail.setText("Enviar por e-mail");
+        buttonEnviarEmail.setText("Baixar certificado");
         buttonEnviarEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEnviarEmailActionPerformed(evt);
@@ -173,20 +173,18 @@ public class TelaLogin extends javax.swing.JFrame {
         dialogCertificadosLayout.setHorizontalGroup(
             dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jLabel10)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(70, 70, 70)
+                .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(fieldCodigoValidacao)
                     .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(fieldCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                        .addGap(92, 92, 92)
                         .addComponent(buttonGerar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonEnviarEmail)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogCertificadosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(129, 129, 129))
         );
         dialogCertificadosLayout.setVerticalGroup(
             dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

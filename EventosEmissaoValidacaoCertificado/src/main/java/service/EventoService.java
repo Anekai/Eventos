@@ -53,12 +53,13 @@ public class EventoService {
             while (resultado.next()) {
                 RegistroEvento re = new RegistroEvento();
 
-                re.setUsuario(new Pessoa(resultado.getInt("pessoa_id"), resultado.getString("nome_pessoa")));
+                re.setUsuario(new Pessoa(resultado.getInt("pessoa_id"), resultado.getString("nome_pessoa"), resultado.getString("email")));
                 re.setEvento(new Evento(resultado.getInt("evento_id"), resultado.getString("nome_evento")));
                 re.setPresenca(SimNaoType.valueOf(resultado.getString("presenca")));
                 re.setCodigoValidacao(resultado.getString("codigo_validacao"));
                 
                 registro = re;
+                
             }
         } catch (SQLException ex) {
             System.out.println("Erro ao buscar inscrições: " + ex);
