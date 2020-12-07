@@ -61,6 +61,8 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         fieldCodigoValidacao = new javax.swing.JTextField();
         buttonEnviarEmail = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        fieldEmailCertificado = new javax.swing.JTextField();
         panelLogin = new javax.swing.JPanel();
         labelLogin = new javax.swing.JLabel();
         fieldLogin = new javax.swing.JTextField();
@@ -150,54 +152,63 @@ public class TelaLogin extends javax.swing.JFrame {
         dialogCertificados.setTitle("Certificados");
         dialogCertificados.setModal(true);
         dialogCertificados.setResizable(false);
-        dialogCertificados.setSize(new java.awt.Dimension(360, 200));
+        dialogCertificados.setSize(new java.awt.Dimension(500, 200));
 
-        buttonGerar.setText("Enviar por e-mail");
+        buttonGerar.setText("Baixar certificado");
         buttonGerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonGerarActionPerformed(evt);
             }
         });
 
-        jLabel10.setText("Código de validação");
+        jLabel10.setText("Código de validação:");
 
-        buttonEnviarEmail.setText("Baixar certificado");
+        buttonEnviarEmail.setText("Mandar por e-mail");
         buttonEnviarEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEnviarEmailActionPerformed(evt);
             }
         });
 
+        jLabel3.setText("E-mail:");
+
         javax.swing.GroupLayout dialogCertificadosLayout = new javax.swing.GroupLayout(dialogCertificados.getContentPane());
         dialogCertificados.getContentPane().setLayout(dialogCertificadosLayout);
         dialogCertificadosLayout.setHorizontalGroup(
             dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(fieldCodigoValidacao)
+                .addContainerGap()
+                .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogCertificadosLayout.createSequentialGroup()
+                        .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(fieldCodigoValidacao)
+                            .addComponent(fieldEmailCertificado, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
                     .addGroup(dialogCertificadosLayout.createSequentialGroup()
                         .addComponent(buttonGerar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonEnviarEmail)))
-                .addContainerGap(59, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogCertificadosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10)
-                .addGap(129, 129, 129))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         dialogCertificadosLayout.setVerticalGroup(
             dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogCertificadosLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(fieldCodigoValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(fieldEmailCertificado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addGroup(dialogCertificadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonGerar)
                     .addComponent(buttonEnviarEmail))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -376,48 +387,8 @@ public class TelaLogin extends javax.swing.JFrame {
     private void buttonGerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGerarActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
                 String codigo = fieldCodigoValidacao.getText();
                 RegistroEvento re = registroEventoService.findByCodigo(codigo);
-                
-                if ( re != null ) {
-                    String text = "Certificamos que "+re.getUsuario().getNome()+" participou do evento "+re.getEvento().getNomeEvento()+". Codigo de validacao: "+codigo;
-                    Paragraph para = new Paragraph (text);
-                    String dest = "C:/itextExamples/"+codigo+".pdf"; 
-                    try {
-                        File directory = new File("C:/itextExamples");
-                        if (!directory.exists()){
-                            directory.mkdir();
-                        }
-                        
-                        PdfWriter writer = new PdfWriter(dest);
-                        // Creating a PdfDocument  
-                        PdfDocument pdfDoc = new PdfDocument(writer);
-                        // Adding an empty page 
-                        pdfDoc.addNewPage(); 
-                        // Creating a Document   
-                        Document document = new Document(pdfDoc); 
-                        document.add(para);
-                        document.close();
-                        
-                        SendAttachment sa = new SendAttachment();
-                        sa.sendMail(re.getUsuario().getEmail(), dest);
-                        JOptionPane.showMessageDialog(rootPane, "PDF gerado em "+dest+" e enviado para o e-mail " + re.getUsuario().getEmail());
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-        });
-    }//GEN-LAST:event_buttonGerarActionPerformed
-
-    private void buttonEnviarEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEnviarEmailActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-                String codigo = fieldCodigoValidacao.getText();
-                RegistroEvento re = registroEventoService.findByCodigo(codigo);
-                
                 
                 if ( re != null ) {
                     String text = "Certificamos que "+re.getUsuario().getNome()+" participou do evento "+re.getEvento().getNomeEvento()+". Codigo de validacao: "+codigo;
@@ -443,6 +414,19 @@ public class TelaLogin extends javax.swing.JFrame {
                         Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+            }
+        });
+    }//GEN-LAST:event_buttonGerarActionPerformed
+
+    private void buttonEnviarEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEnviarEmailActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                String codigo = fieldCodigoValidacao.getText();
+                String email = fieldEmailCertificado.getText();
+                
+                registroEventoService.enviarCertificadoEmail(codigo, email);
+                
+                JOptionPane.showMessageDialog(rootPane, "Certificado enviado para o e-mail " + email);
             }
         });
     }//GEN-LAST:event_buttonEnviarEmailActionPerformed
@@ -501,6 +485,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JTextField fieldCodigoValidacao;
     private javax.swing.JTextField fieldCpfUsuario;
     private javax.swing.JTextField fieldDataNascimentoUsuario;
+    private javax.swing.JTextField fieldEmailCertificado;
     private javax.swing.JTextField fieldEmailUsuario;
     private javax.swing.JTextField fieldLogin;
     private javax.swing.JTextField fieldNomeUsuario;
@@ -510,6 +495,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel labelLogin;

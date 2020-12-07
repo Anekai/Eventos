@@ -1,71 +1,76 @@
 
 package entidade;
 
-import java.util.Date;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import framework.CalendarSerializer;
 import java.io.Serializable;
+import java.util.Date;
+import types.TipoEventoType;
 
 public class Evento implements Serializable {
+    
+    private Integer id;
+    private String nomeEvento;
+    private TipoEventoType tipoEvento;
+    @JsonSerialize(using = CalendarSerializer.class)
+    private Date dataEvento;
 
-    private int id;
-    private String cnpj;
-    private String nome;
-    private Date data;
-    private double valor;
-
-    public Evento() {
-
+    public Evento(){}
+    
+    public Evento(String values) {
+        String[] val = values.split(" - ");
+        
+        id = Integer.valueOf(val[0]);
+        nomeEvento = val[1];
+    }
+    
+    public Evento(Integer id, String nomeEvento) {
+        this.id = id;
+        this.nomeEvento = nomeEvento;
+    }
+    
+    public Evento(Integer id, String nomeEvento, TipoEventoType tipoEvento, Date dataEvento) {
+        this.id = id;
+        this.nomeEvento = nomeEvento;
+        this.tipoEvento = tipoEvento;
+        this.dataEvento = dataEvento;
     }
 
-    public Evento(String cnpj, String nome, Date data, double valor) {
-        this.cnpj = cnpj;
-        this.nome = nome;
-        this.data = data;
-        this.valor = valor;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getNomeEvento() {
+        return nomeEvento;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setNomeEvento(String nomeEvento) {
+        this.nomeEvento = nomeEvento;
     }
 
-    public String getNome() {
-        return nome;
+    public TipoEventoType getTipoEvento() {
+        return tipoEvento;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTipoEvento(TipoEventoType tipoEvento) {
+        this.tipoEvento = tipoEvento;
     }
 
-    public Date getData() {
-        return data;
+    public Date getDataEvento() {
+        return dataEvento;
     }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setDataEvento(Date dataEvento) {
+        this.dataEvento = dataEvento;
     }
 
     @Override
     public String toString() {
-        return "{" + "id=" + id + ", cnpj=" + cnpj + ", nome=" + nome + ", data=" + data + ", valor=" + valor + '}';
+        return id + " - " + nomeEvento;
     }
-
+    
 }

@@ -134,11 +134,6 @@ public class TelaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dialogProduto = new javax.swing.JDialog();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         panelRegistroPresenca = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         buttonRegistrarPresenca = new javax.swing.JButton();
@@ -169,41 +164,6 @@ public class TelaInicial extends javax.swing.JFrame {
         menuItemInscricoes = new javax.swing.JMenuItem();
         menuItemUsuarios = new javax.swing.JMenuItem();
         menuItemSincronizar = new javax.swing.JMenuItem();
-
-        jLabel5.setText("Produto:");
-
-        jLabel6.setText("Quantidade:");
-
-        jButton1.setText("Adicionar");
-
-        javax.swing.GroupLayout dialogProdutoLayout = new javax.swing.GroupLayout(dialogProduto.getContentPane());
-        dialogProduto.getContentPane().setLayout(dialogProdutoLayout);
-        dialogProdutoLayout.setHorizontalGroup(
-            dialogProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogProdutoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(dialogProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addGroup(dialogProdutoLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1))
-                .addContainerGap(168, Short.MAX_VALUE))
-        );
-        dialogProdutoLayout.setVerticalGroup(
-            dialogProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogProdutoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(dialogProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(203, Short.MAX_VALUE))
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Eventus");
@@ -590,7 +550,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton buttonRegistrarPresenca;
     private javax.swing.JComboBox<String> comboEventoInscricao;
     private javax.swing.JComboBox<String> comboEventoPresenca;
-    private javax.swing.JDialog dialogProduto;
     private javax.swing.JTextField fieldCpfUsuario;
     private javax.swing.JTextField fieldEmailUsuario;
     private javax.swing.JTextField fieldIdUsuarioInscricao;
@@ -598,18 +557,14 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField fieldNomeUsuario;
     private javax.swing.JTextField fieldNomeUsuarioInscricao;
     private javax.swing.JTextField fieldNomeUsuarioPresenca;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelEncomendaMessage;
     private javax.swing.JLabel labelInscricaoInfo;
     private javax.swing.JLabel labelPresencaInfo;

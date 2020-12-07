@@ -10,6 +10,8 @@ import entities.Pessoa;
 import entities.RegistroEvento;
 import entities.RegistroEventoTemp;
 import framework.CalendarDeserializer;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +33,7 @@ import types.TipoEventoType;
 
 public class MainView {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         /*RegistroEventoTempService service = SpringConfig.context.getBean(RegistroEventoTempService.class);
 
@@ -52,7 +54,8 @@ public class MainView {
         //r.deleteRegistroEventoTeste();
         //r.synchronizeTest();
         //r.registroEventoTempFindTest();
-        r.registroEventoTeste();
+        //r.registroEventoTeste();
+        r.enviarCertificadoEmail();
     }
     
     public void getTest() {
@@ -275,6 +278,19 @@ public class MainView {
         } catch (Exception e) {
             System.out.println("Erro ao buscar inscrições temporárias: " + e);
         }
+    }
+    
+    public void enviarCertificadoEmail() {
+        Client client = ClientBuilder.newClient();
+
+        //http://177.44.248.90:8080/EventosEnvioEmail-1.0/rest/evento/enviarCertificadoEmail/5123456789005/alexandre.klabunde@universo.univates.br
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosEnvioEmail-1.0");
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/evento/enviarCertificadoEmail/" + "5123456789005" + "/" + "alexandre.klabunde@universo.univates.br");
+        Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
+        Response response = invocationBuilder.get();
+        
+        System.out.println("Response: " + response.readEntity(String.class));
     }
     
 }

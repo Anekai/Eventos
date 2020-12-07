@@ -30,7 +30,7 @@ public class Pessoa implements Serializable {
         this.nome = nome;
     }
     
-    public Pessoa(Integer id, String nome, String email) {
+        public Pessoa(Integer id, String nome, String email) {
         this.id = id;
         this.nome = nome;
         this.email = email;

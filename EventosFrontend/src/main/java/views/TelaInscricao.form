@@ -263,7 +263,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="fieldUpdateCodigoValidacao">
           <Properties>
-            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>

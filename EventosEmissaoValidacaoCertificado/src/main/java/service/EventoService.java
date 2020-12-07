@@ -69,6 +69,4 @@ public class EventoService {
         return registro;
     }
     
-    
-    
 }

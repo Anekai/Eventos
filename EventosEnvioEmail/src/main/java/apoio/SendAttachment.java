@@ -1,5 +1,5 @@
 
-package configuration;
+package apoio;
 
 import java.util.*;  
 import javax.mail.*;  
@@ -7,8 +7,7 @@ import javax.mail.internet.*;
 import javax.activation.*;  
   
 public class SendAttachment{  
-    public void sendMail(String email, String dest) {
-        System.out.println("TESTE - 1");
+    public void sendMail(String email, String dest, String fileName) {
         String to = email;//change accordingly  
         final String user="eventmailsender@gmail.com";//change accordingly  
         final String password="univates2020B";//change accordingly  
@@ -22,32 +21,28 @@ public class SendAttachment{
         properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.port", "465");
-  
-        System.out.println("TESTE - 2");
+
         Session session = Session.getDefaultInstance(properties,  
             new javax.mail.Authenticator() {  
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {  
                     return new PasswordAuthentication(user,password);  
                 }});
- 
-        System.out.println("TESTE - 3");
+
         try {
             MimeMessage message = new MimeMessage(session);  
             message.setFrom(new InternetAddress(user));  
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));  
-            message.setSubject("Certificado");  
-      System.out.println("TESTE - 4");
+            message.setSubject("Certificado");
             //3) create MimeBodyPart object and set your message text     
             BodyPart messageBodyPart1 = new MimeBodyPart();  
             messageBodyPart1.setText("Envio de certificado");  
       
             //4) create new MimeBodyPart object and set DataHandler object to this object      
             MimeBodyPart messageBodyPart2 = new MimeBodyPart();  
-System.out.println("TESTE - 5");
             DataSource source = new FileDataSource(dest);  
             messageBodyPart2.setDataHandler(new DataHandler(source));  
-            messageBodyPart2.setFileName(dest);  
+            messageBodyPart2.setFileName(fileName);  
      
             //5) create Multipart object and add MimeBodyPart objects to this object      
             Multipart multipart = new MimeMultipart();  
@@ -55,8 +50,7 @@ System.out.println("TESTE - 5");
             multipart.addBodyPart(messageBodyPart2);  
   
             //6) set the multiplart object to the message object  
-            message.setContent(multipart );  
-     System.out.println("TESTE - 6");
+            message.setContent(multipart );
             //7) send message  
             Transport.send(message);  
    

@@ -135,4 +135,16 @@ public class RegistroEventoService {
         return re;
     }
     
+    public void enviarCertificadoEmail(String codigo, String email) {
+        Client client = ClientBuilder.newClient();
+
+        WebTarget webTarget = client.target("http://177.44.248.90:8080/EventosEnvioEmail-1.0");
+        
+        WebTarget resourceWebTarget = webTarget.path("rest/evento/enviarCertificadoEmail/" + codigo + "/" + email);
+        Invocation.Builder invocationBuilder = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
+        Response response = invocationBuilder.get();
+        
+        System.out.println("Response: " + response.readEntity(String.class));
+    }
+    
 }

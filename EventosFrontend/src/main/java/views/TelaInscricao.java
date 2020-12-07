@@ -316,7 +316,7 @@ public class TelaInscricao extends javax.swing.JDialog {
 
         jLabel3.setText("Código:");
 
-        fieldUpdateCodigoValidacao.setFocusable(false);
+        fieldUpdateCodigoValidacao.setEditable(false);
 
         javax.swing.GroupLayout dialogUpdateLayout = new javax.swing.GroupLayout(dialogUpdate.getContentPane());
         dialogUpdate.getContentPane().setLayout(dialogUpdateLayout);
